@@ -1,27 +1,37 @@
 <!DOCTYPE html>
-<html lang="Es">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Vinculación de los estilos específicos para el proceso de alta de usuarios -->
     <link rel="stylesheet" href="../CSS/registro.css">
-    <title>Registro</title>
+    <title>Registro - Manager De Ministerios</title>
 </head>
 <body>
+    <!-- Navegación de retorno hacia la pantalla de bienvenida -->
     <a href="index.html">
-        <img src="../IMG/flecha.png" class="boton-volver" alt="Volver">
+        <img src="../IMG/flecha.png" class="boton-volver" alt="Volver a inicio">
     </a>
 
+    <!-- Encabezado del módulo de registro -->
     <div class="titulo-registro">
         Registro
     </div>
 
+    <!-- Contenedor del formulario de inscripción -->
+    <!-- Senior Note: Se aconseja migrar este <div> a un tag <form> e incorporar atributos 'id' y 'name'
+         en cada input para simplificar la serialización de datos hacia la base de datos. -->
     <div class="formulario-registro">
-        <input type="text" placeholder="Nombre Completo..." class="campo">
-        <input type="email" placeholder="Correo Electrónico..." class="campo">
+        <!-- Captura de datos básicos de perfil -->
+        <input type="text" placeholder="Nombre Completo..." class="campo" required>
+        <input type="email" placeholder="Correo Electrónico..." class="campo" required>
 
+        <!-- Sección crítica: Segmentación de roles del modelo de negocio -->
         <p class="pregunta">¿Qué eres en tu iglesia?</p>
 
         <div class="contenedor-opciones">
+            <!-- Senior Note: El uso del atributo name="cargo" idéntico en ambos campos es excelente. 
+                 Esto asegura la exclusividad mutua nativa (solo se puede elegir uno a la vez). -->
             <label class="opcion-blanca">
                 <input type="radio" name="cargo" value="siervo">
                 <span>Siervo</span>
@@ -32,22 +42,27 @@
             </label>
         </div>
 
-        <input type="password" placeholder="Contraseña..." class="campo">
+        <!-- Credenciales de seguridad -->
+        <input type="password" placeholder="Contraseña..." class="campo" required>
     
+        <!-- Texto de apoyo para mejorar la experiencia de usuario (UX) -->
         <p class="texto-pequeno">¡Recuerda la contraseña, la necesitarás después!</p>
 
+        <!-- Botón de envío de datos del formulario -->
         <button type="button" class="boton-blanco-grande">Guardar</button>
+        
+        <!-- Enrutamiento hacia el inicio de sesión para usuarios ya existentes -->
         <a href="/HTML/inicio_sesion.html" class="enlace-final">¿Ya tienes una cuenta?</a>
     </div>
 
-
+    <!-- Pie de página institucional y de marca -->
     <div class="barra-inferior">
         <div class="footer-izquierdo">
-            <img src="../IMG/Logo MDM.png" alt="Logo" class="icono-footer">
+            <img src="../IMG/Logo MDM.png" alt="Logo Manager de Ministerios" class="icono-footer">
             <span class="texto-footer">Manager de Ministerios</span>
         </div>
         <div class="footer-derecho">
-            <img src="../IMG/logoSena.png" alt="Logo 2" class="icono-footer">
+            <img src="../IMG/logoSena.png" alt="Logo de la institución SENA" class="icono-footer">
         </div>
     </div>
 </body>

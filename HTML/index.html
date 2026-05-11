@@ -1,33 +1,44 @@
 <!DOCTYPE html>
-<html lang="Es">
+<!-- Senior Note: Se recomienda usar minúsculas en el atributo lang ("es") para cumplir estándares W3C -->
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Enlace a los estilos globales de la página de bienvenida -->
     <link rel="stylesheet" href="../CSS/index.css">
-    <title>Mi Pagina de Ministerios</title>
+    <title>Manager De Ministerios - Bienvenida</title>
 </head>
 <body>
 
+    <!-- Encabezado principal de la landing page -->
+    <!-- Senior Note: Usar la etiqueta semántica <header> o un <h1> mejora el SEO y la accesibilidad -->
     <div class="titulo-bienvenida">
         ¡BIENVENIDO!
     </div>
 
+    <!-- Contenedor central: Tarjeta de presentación y acciones principales -->
     <div class="caja-principal">
         
+        <!-- Descripción corta del propósito del ecosistema -->
         <p class="texto-descripcion">
             <strong>Manager De Ministerios</strong> es un software para creación de eventos, 
             donde podrás programar eventos de tu iglesia junto con los siervos encargados. 
             Y lo mejor...
         </p>
 
+        <!-- Eslogan o texto de enganche comercial -->
         <p class="texto-llamativo">
             ¡Todos los participantes lo sabrán!
         </p>
+
+        <!-- Bloque de navegación: Enrutamiento a los módulos de autenticación -->
         <div class="contenedor-botones">
+            <!-- Acción: Registro de nuevos usuarios (Líderes/Siervos) -->
             <div class="boton-reg_in">
                 <span>Si es tu primera vez</span>
                 <a href="/HTML/registro.html" class="boton">Registrate</a>
             </div>
+            <!-- Acción: Acceso a usuarios con cuentas existentes -->
             <div class="boton-reg_in">
                 <span>¿Ya habías estado antes?</span>
                 <a href="/HTML/inicio_sesion.html" class="boton">Inicia Sesión</a>
@@ -36,13 +47,17 @@
 
     </div>
 
+    <!-- Barra de pie de página (Footer) con marcas aliadas e identidad institucional -->
+    <!-- Senior Note: Se sugiere reemplazar este div por la etiqueta semántica <footer> -->
     <div class="barra-inferior">
+        <!-- Identidad de la aplicación (Nombre y logotipo) -->
         <div class="footer-izquierdo">
-            <img src="../IMG/Logo MDM.png" alt="Logo" class="icono-footer">
+            <img src="../IMG/Logo MDM.png" alt="Logo Manager de Ministerios" class="icono-footer">
             <span class="texto-footer">Manager de Ministerios</span>
         </div>
+        <!-- Co-branding institucional (SENA) -->
         <div class="footer-derecho">
-            <img src="../IMG/logoSena.png" alt="Logo 2" class="icono-footer">
+            <img src="../IMG/logoSena.png" alt="Logo de la institución SENA" class="icono-footer">
         </div>
     </div>
 </body>

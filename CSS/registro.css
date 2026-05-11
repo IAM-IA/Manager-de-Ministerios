@@ -1,4 +1,5 @@
 body {
+    /* Configuración de la capa de fondo y persistencia visual fija */
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
                 url('../IMG/fondo\ intro.webp') no-repeat center center fixed;
     background-size: cover;
@@ -11,6 +12,7 @@ body {
     margin: 0;
 }
 
+/* Control posicional absoluto del botón para asegurar su accesibilidad global */
 .boton-volver {
   position: fixed;     
   top: 20px;           
@@ -33,6 +35,7 @@ body {
     margin-top: -110px;
 }
 
+/* Encapsulado estético con desenfoque para aislar visualmente el formulario */
 .formulario-registro {
     background-color: rgba(44, 62, 80, 0.7);
     width: 350px;
@@ -61,12 +64,14 @@ body {
     margin: 15px 0 10px 0;
 }
 
+/* Maquetación del contenedor lineal para la selección de tipos de usuario */
 .contenedor-opciones {
     display: flex;
     gap: 20px;
     margin-bottom: 15px;
 }
 
+/* Estilo por defecto de las etiquetas visuales para simular botones de opción */
 .opcion-blanca span {
     background-color: white;
     color: black;
@@ -77,6 +82,7 @@ body {
     display: inline-block;
 }
 
+/* Selector hermano (+) para alterar el estilo del rol seleccionado activamente */
 .opcion-blanca input:checked + span {
     background-color: #122d73;
     color: white;

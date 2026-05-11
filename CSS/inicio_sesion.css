@@ -1,4 +1,5 @@
 body {
+    /* Fondo con gradiente oscuro y la imagen original con espacio escapado */
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
                 url('../IMG/fondo\ intro.webp') no-repeat center center fixed;
     background-size: cover;
@@ -11,6 +12,7 @@ body {
     margin: 0;
 }
 
+/* Configuración de posición estática e interacciones del botón de retorno */
 .boton-volver {
   position: fixed;     
   top: 20px;           
@@ -33,6 +35,7 @@ body {
     margin-top: -110px;
 }
 
+/* Contenedor del formulario con efecto de desenfoque y distribución vertical */
 .formulario-ingresar {
     background-color: rgba(44, 62, 80, 0.7);
     width: 350px;
@@ -45,6 +48,7 @@ body {
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
+/* Campos de entrada de datos con ancho total controlado */
 .campo {
     width: 100%;
     padding: 12px;
@@ -61,6 +65,7 @@ body {
     margin-top: 15px;
 }
 
+/* Estilos de acción principal para el botón de ingreso */
 .boton-blanco-grande {
     background-color: white;
     color: black;
@@ -73,6 +78,7 @@ body {
     transition: 0.3s;
 }
 
+/* Cambio de color de fondo al posicionar el cursor */
 .boton-blanco-grande:hover {
     background-color: #ddd
 }
