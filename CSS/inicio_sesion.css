@@ -1,5 +1,10 @@
+/**
+ * @file inicio_sesion.css
+ * @description Estilos estructurales para la interfaz de autenticación.
+ */
+
+/* Configuración del viewport y fondo de pantalla */
 body {
-    /* Fondo con gradiente oscuro y la imagen original con espacio escapado */
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
                 url('../IMG/fondo\ intro.webp') no-repeat center center fixed;
     background-size: cover;
@@ -12,18 +17,19 @@ body {
     margin: 0;
 }
 
-/* Configuración de posición estática e interacciones del botón de retorno */
+/* Control posicional fijo del botón de retorno */
 .boton-volver {
-  position: fixed;     
-  top: 20px;           
-  left: 20px;      
-  z-index: 1000;       
-  width: 45px;         
-  height: auto;          
-  cursor: pointer;
-  transition: all 0.3s ease;
+    position: fixed;     
+    top: 20px;           
+    left: 20px;      
+    z-index: 1000;       
+    width: 45px;         
+    height: auto;          
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
+/* Encabezado visual del módulo */
 .titulo-insesion {
     background-color: #164b6ed0;
     padding: 8px 35px;
@@ -31,12 +37,12 @@ body {
     border-radius: 4px;
     margin-bottom: 20px;
     font-weight: bold;
-    color:white;
+    color: #FFFFFF;
     margin-top: -110px;
 }
 
-/* Contenedor del formulario con efecto de desenfoque y distribución vertical */
-.formulario-ingresar {
+/* Contenedor del formulario con desenfoque de fondo */
+form {
     background-color: rgba(44, 62, 80, 0.7);
     width: 350px;
     padding: 30px;
@@ -45,10 +51,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* Campos de entrada de datos con ancho total controlado */
+/* Campos de entrada de texto */
 .campo {
     width: 100%;
     padding: 12px;
@@ -59,33 +65,35 @@ body {
     box-sizing: border-box;
 }
 
+/* Enlaces secundarios de navegación */
 .enlace-final {
-    color: white;
+    color: #FFFFFF;
     font-size: 13px;
     margin-top: 15px;
 }
 
-/* Estilos de acción principal para el botón de ingreso */
+/* Botón de envío principal */
 .boton-blanco-grande {
-    background-color: white;
-    color: black;
+    background-color: #FFFFFF;
+    color: #000000;
     border: none;
     padding: 10px 35px;
     border-radius: 25px;
     font-weight: bold;
     font-size: 16px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background-color 0.3s ease;
 }
 
-/* Cambio de color de fondo al posicionar el cursor */
+/* Control de estado hover para botón de envío */
 .boton-blanco-grande:hover {
-    background-color: #ddd
+    background-color: #DDDDDD;
 }
 
+/* Barra inferior de navegación y branding */
 .barra-inferior {
     background-color: #164b6ede;
-    color: white;
+    color: #FFFFFF;
     width: 100%;
     position: fixed;
     bottom: 0;
@@ -96,17 +104,20 @@ body {
     box-sizing: border-box; 
 }
 
+/* Distribución lineal de marcas en footer */
 .footer-izquierdo {
     display: flex;
     align-items: center;
     gap: 15px; 
 }
 
+/* Tipografía de marca institucional */
 .texto-footer {
     font-size: 1.1rem;
     font-weight: 500;
 }
 
+/* Ajuste proporcional de logotipos corporativos */
 .icono-footer {
     height: 50px;
     width: auto;

@@ -41,22 +41,26 @@ El software adapta su interfaz de forma dinámica según el rol del usuario aute
 
 El proyecto organiza sus archivos distribuyendo el código, los estilos y los recursos multimedia en tres carpetas principales en la raíz del repositorio:
 
-```text
 ├── README.md               # Documentación general del sistema
 ├── CSS/
 │   ├── index.css           # Estilos de la página de bienvenida
 │   ├── inicio_sesion.css   # Estilos del módulo de autenticación
-│   └── registro.css        # Estilos del módulo de registro de usuarios
+│   ├── registro.css        # Estilos del módulo de registro de usuarios
+│   └── principal.css       # Estilos del panel de escritorio del calendario
 ├── HTML/
 │   ├── index.html          # Pantalla de bienvenida y acceso principal
-│   ├── inicio_sesion.html  # Formulario de inicio de sesión con control de roles
-│   └── registro.html       # Formulario de registro (Líder de Ministerio / Siervo)
+│   ├── inicio_sesion.html  # Formulario de inicio de sesión
+│   ├── registro.html       # Formulario de registro de cuentas
+│   └── principal.php       # Panel del calendario dinámico con control de sesión
+├── PHP/
+│   ├── conexion.php        # Script de conexión centralizada a MySQL (BD: mdm)
+│   ├── envio_registro.php  # Controlador para el procesamiento de nuevos usuarios
+│   └── login.php           # Controlador para la autenticación y apertura de sesiones
 └── IMG/
     ├── flecha.png          # Icono de navegación gráfica / retorno
-    ├── fondo intro.png     # Imagen de fondo para la interfaz de bienvenida
+    ├── fondo intro.png     # Imagen de fondo para las interfaces de acceso
     ├── Logo MDM.png        # Identidad visual de Manager De Ministerios
     └── logoSena.png        # Logotipo institucional (SENA)
-```
 
 ---
 
@@ -67,13 +71,41 @@ El proyecto organiza sus archivos distribuyendo el código, los estilos y los re
 
 ---
 
-## ⚙️ Instrucciones de Ejecución Local
+## 🖥️ Tecnologías del Lado del Servidor y Persistencia (Backend)
 
-Para visualizar y probar la interfaz de bienvenida y enrutamiento del software, sigue estos pasos:
+*   **PHP**: Lenguaje encargado de la lógica de negocio, validación estricta de variables en peticiones `POST`, procesamiento dinámico de la grilla del calendario mensual y administración de variables globales de sesión (`session_start()`).
+*   **MySQL**: Sistema de gestión de bases de datos relacionales utilizado para el almacenamiento persistente de registros de usuarios en la tabla `usuario`.
+*   **Mecanismos de Seguridad (BCrypt)**: Implementación de la función nativa `password_hash()` y `password_verify()` para mitigar el almacenamiento de contraseñas en texto plano y asegurar los hashes cifrados en la base de datos.
 
-1.  **Descargar o clonar** el repositorio en tu máquina local.
-2.  Asegúrate de mantener la estructura exacta de nombres de carpetas (`CSS`, `HTML`, `IMG`) respetando las mayúsculas para evitar errores de rutas.
-3.  Entra a la carpeta `HTML/` y ejecuta el archivo `index.html` abriéndolo directamente con cualquier navegador web moderno (Google Chrome, Brave, Microsoft Edge).
+---
+
+## 🗄️ Estructura de la Base de Datos (MySQL)
+
+El sistema opera sobre una base de datos relacional llamada `mdm`. A continuación, se detalla la estructura física exacta de la tabla de persistencia utilizada en el entorno de desarrollo:
+
+```sql
+CREATE DATABASE IF NOT EXISTS mdm;
+USE mdm;
+
+CREATE TABLE IF NOT EXISTS usuario (
+    Id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    correo VARCHAR(150) NOT NULL UNIQUE,
+    password VARCHAR(225) NOT NULL,
+    rol ENUM('líder', 'siervo') NOT NULL
+);
+```
+---
+
+## ⚙️ Instrucciones de Ejecución en Entorno Local (Despliegue)
+
+Para desplegar y ejecutar la aplicación de forma local, es necesario contar con un entorno de desarrollo de pila local (como XAMPP, Laragon o WampServer).
+
+1.  **Clonar o mover** la carpeta completa del proyecto (`MDM`) dentro del directorio raíz de publicación de tu servidor local (en XAMPP la ruta obligatoria es `C:/xampp/htdocs/`).
+2.  **Iniciar los servicios** desde el panel de control de tu software de servidor local (activar módulos **Apache** y **MySQL**).
+3.  **Montar la base de datos**: Acceder a `http://localhost/phpmyadmin/`, crear una base de datos llamada `mdm` y estructurar la tabla `usuario` (con columnas para `id`, `nombre`, `correo`, `rol`, y `password`).
+4.  **Ejecutar en el navegador**: No abrir los archivos con doble clic. Acceder estrictamente mediante la dirección URL del servidor local:
+    *   `http://localhost/MDM/HTML/index.html`
 
 ---
 
@@ -85,6 +117,14 @@ La interfaz de inicio de sesión (`inicio_sesion.html`) actúa como el punto de 
 *   **Campos de Captura**: Implementa entradas nativas optimizadas para formatos de correo electrónico (`type="email"`) y ocultamiento de caracteres confidenciales (`type="password"`).
 *   **Control de Navegación**: Incorpora un botón de retorno rápido (`flecha.png`) conectado directamente con la raíz del módulo de bienvenida (`index.html`) para evitar callejones sin salida en la experiencia de usuario.
 *   **Enrutamiento Cruzado**: Enlace directo hacia la interfaz de inscripción (`registro.html`) para aquellos usuarios que no posean credenciales vigentes en el sistema.
+
+---
+
+## 🛡️ Seguridad y Control de Sesión
+
+La aplicación implementa una capa de seguridad basada en el estado de las sesiones del servidor:
+*   **Validación de Sesión Activa:** El archivo `principal.php` verifica mediante `session_start()` la existencia de las variables globales de autenticación. Si un usuario intenta forzar la URL directamente en el navegador sin haberse logueado, el servidor intercepta la petición y lo redirige automáticamente hacia `inicio_sesion.html`.
+*   **Mitigación de Inyecciones de Código:** Toda inserción y consulta en la base de datos se ejecuta mediante sentencias preparadas (`prepare` y `bind_param`), evitando ataques de inyección SQL (SQLi).
 
 ---
 

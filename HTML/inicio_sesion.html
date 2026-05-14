@@ -1,18 +1,15 @@
 <!DOCTYPE html>
-<!-- Senior Note: Mantener el atributo lang en minúsculas "es" para cumplir con la especificación oficial W3C -->
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Vinculación de la hoja de estilos específica para el módulo de autenticación -->
-    <link rel="stylesheet" href="../CSS/inicio_sesion.css">
     <title>Iniciar Sesión - Manager De Ministerios</title>
+    <link rel="stylesheet" href="../CSS/inicio_sesion.css">
 </head>
 <body>
 
-    <!-- Botón de retorno: Permite la navegación hacia la pantalla de bienvenida -->
-    <!-- Senior Note: Al ser una ruta relativa dentro de la misma carpeta HTML, "index.html" es correcto y limpio -->
-    <a href="index.html">
+    <!-- Botón de retorno a bienvenida -->
+    <a href="/MDM/HTML/index.html">
         <img src="../IMG/flecha.png" class="boton-volver" alt="Volver a la página de bienvenida">
     </a>
 
@@ -21,26 +18,22 @@
         Iniciar Sesión
     </div>
     
-    <!-- Contenedor del formulario de acceso -->
-    <!-- Senior Note: Para producción, se sugiere cambiar este <div> por la etiqueta semántica <form>. 
-         Esto permitirá capturar el evento "submit" en JavaScript y mejorar la accesibilidad con lectores de pantalla. -->
-    <div class="formulario-ingresar">
-        
-        <!-- Campo de entrada para las credenciales del usuario -->
-        <!-- Senior Note: Es indispensable agregar los atributos 'id', 'name' y etiquetas <label> para poder 
-             capturar estos datos desde el código JavaScript o el Backend más adelante. -->
-        <input type="email" placeholder="Correo Electrónico..." class="campo" required>
-        <input type="password" placeholder="Contraseña..." class="campo" required>
+    <!-- Formulario de autenticación -->
+    <form action="http://localhost/MDM/PHP/login.php" method="POST" class="formulario-ingresar">
+            
+        <!-- Campos de credenciales -->
+        <input type="email" name="email" placeholder="Correo Electrónico..." class="campo" required>
+        <input type="password" name="password" placeholder="Contraseña..." class="campo" required>
 
-        <!-- Acción de validación e ingreso al sistema -->
-        <!-- Senior Note: Si se cambia el contenedor a <form>, el tipo de botón debería ser type="submit" -->
-        <button type="button" class="boton-blanco-grande">Ingresar</button>
+        <!-- Control de envío -->
+        <button type="submit" class="boton-blanco-grande">Ingresar</button>
         
-        <!-- Enrutamiento alternativo en caso de no contar con credenciales activas -->
-        <a href="/HTML/registro.html" class="enlace-final">¿No tienes una cuenta?</a>
-    </div>
+        <!-- Enlace de navegación alternativo -->
+        <a href="/MDM/HTML/registro.html" class="enlace-final">¿No tienes una cuenta?</a>
 
-    <!-- Barra de pie de página (Footer) con marcas aliadas e identidad institucional -->
+    </form>
+
+    <!-- Barra inferior institucional -->
     <div class="barra-inferior">
         <div class="footer-izquierdo">
             <img src="../IMG/Logo MDM.png" alt="Logo Manager de Ministerios" class="icono-footer">
