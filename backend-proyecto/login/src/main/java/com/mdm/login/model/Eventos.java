@@ -42,11 +42,23 @@ public class Eventos {
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
 
-    /**
-     * Identificador del usuario/lider encargado (bigint(20)).
+        /**
+     * Identificador del anfitrión principal (bigint(20)).
      */
     @Column(name = "id_usuario", nullable = false)
     private long idUsuario;
+
+    /**
+     * Identificador del segundo anfitrión obligatorio (bigint(20)).
+     */
+    @Column(name = "id_usuario2", nullable = false)
+    private long idUsuario2;
+
+    /**
+     * Identificador del tercer anfitrión obligatorio (bigint(20)).
+     */
+    @Column(name = "id_usuario3", nullable = false)
+    private long idUsuario3;
 
     /**
      * Descripcion o detalles adicionales del evento (tipo text en MySQL).

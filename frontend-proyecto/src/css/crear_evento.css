@@ -1,113 +1,130 @@
 /* ==========================================================================
-   Estilos para el Módulo de Crear Evento (Estructura Limpia para PC)
+   Estilos CSS - Nivel Tecnólogo ADSO (Grid Layout Dinámico)
    ========================================================================== */
 
-/* Contenedor que centra la tarjeta azul en el espacio disponible al lado de la barra */
 .contenedor-centrado-formulario {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     width: 100%;
+    min-height: calc(100vh - 50px);
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-/* Tarjeta contenedora azul basada en tu paleta de colores corporativos */
+.cabecera-modulo {
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.titulo-principal {
+    color: #ffffff;
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0;
+}
+
+/* Tarjeta optimizada y estilizada */
 .tarjeta-formulario-azul {
     background-color: #4B6B83;
     width: 100%;
-    max-width: 550px; /* Tamaño ideal para que no se estire demasiado en pantallas de PC */
-    padding: 40px 35px;
-    border-radius: 20px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-    margin-top: 15px;
+    max-width: 500px; /* Reducción de ancho controlado */
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    box-sizing: border-box;
 }
 
-/* Distribución interna del formulario en una sola columna vertical */
 .formulario-evento-interno {
     display: flex;
     flex-direction: column;
-    gap: 22px; /* Separación vertical uniforme entre campos */
+    gap: 20px;
 }
 
-/* Contenedor individual para cada campo de texto o selector */
+/* Distribución del formulario en dos columnas equilibradas */
+.grilla-formulario {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
+    gap: 14px; /* Espaciado uniforme */
+    width: 100%;
+}
+
+/* Manejo de espacios en la cuadrícula */
+.campo-nombre { grid-column: span 1; }
+.campo-fecha { grid-column: span 1; }
+.campo-descripcion { grid-column: span 2; } /* Ocupa todo el ancho */
+.campo-anfitrion1 { grid-column: span 2; }   /* Ocupa todo el ancho */
+.campo-anfitrion2 { grid-column: span 1; }
+.campo-anfitrion3 { grid-column: span 1; }
+
 .grupo-input {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    width: 100%;
+    gap: 6px;
 }
 
-/* Títulos descriptivos "Siervos" y "Líder" encima de los selectores */
+/* Etiquetas cambiadas a <label> para mejor semántica evaluada en ADSO */
 .etiqueta-formulario {
     color: #FFFFFF;
     font-weight: 600;
-    font-size: 1.05rem;
-    text-align: left;
-    padding-left: 10px;
-    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+    padding-left: 6px;
+    margin: 0;
 }
 
-/* Estilo unificado y ultra-redondeado para todos los inputs y combobox */
+/* Inputs con padding refinado para no verse toscos */
 .campo-redondo {
     width: 100%;
-    padding: 14px 20px;
-    border-radius: 30px; /* Bordes ovalados idénticos a tus interfaces previas */
+    padding: 10px 14px;
+    border-radius: 20px; /* Redondeado sutil y moderno */
     border: none;
     background-color: #FFFFFF;
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #333333;
     outline: none;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
 }
 
-/* Color gris suave para los textos de ayuda (Placeholders) */
 .campo-redondo::placeholder {
-    color: #888888;
+    color: #999999;
 }
 
-/* Ajuste específico para el cuadro grande de descripción */
 .campo-redondo.area-texto {
-    resize: none; /* Bloquea que el usuario pueda deformar el cuadro con el mouse */
-    height: 110px; /* Altura suficiente para escribir párrafos */
-    border-radius: 20px; /* Redondeado ligeramente menor para cajas grandes */
+    resize: none;
+    height: 75px; /* Compactación vertical */
+    border-radius: 12px;
 }
 
-/* Estilización de la flecha de los menú desplegables (Select) */
 .selector-interno {
-   /* appearance: none; Quita la flecha fea por defecto de los navegadores
-    -webkit-appearance: none;
-    -moz-appearance: none;*/
-    /* Insertamos una flecha limpia en formato SVG que combina con tu diseño */
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://w3.org' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
     background-repeat: no-repeat;
-    background-position: right 20px center;
-    background-size: 18px;
+    background-position: right 14px center;
+    background-size: 14px;
     cursor: pointer;
+    padding-right: 30px;
 }
 
-/* Botón "Crear" ovalado y centrado en la parte inferior de la tarjeta */
+/* Botón de envío */
 .boton-crear-blanco {
     background-color: #FFFFFF;
     color: #333333;
     border: none;
-    padding: 12px 50px;
-    font-size: 1.1rem;
+    padding: 11px 40px;
+    font-size: 0.95rem;
     font-weight: bold;
-    border-radius: 30px;
+    border-radius: 20px;
     cursor: pointer;
-    align-self: center; /* Se centra horizontalmente dentro del contenedor azul */
-    margin-top: 10px;
+    align-self: center;
     transition: background-color 0.2s ease, transform 0.1s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Animación sutil cuando pasas el mouse por encima del botón */
 .boton-crear-blanco:hover {
-    background-color: #F0F4F8;
-    transform: translateY(-2px); /* Eleva el botón levemente */
+    background-color: #F5F7FA;
+    transform: translateY(-1px);
 }
 
-/* Pequeño ajuste para cuando el botón es presionado */
 .boton-crear-blanco:active {
     transform: translateY(0);
 }

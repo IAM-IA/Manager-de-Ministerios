@@ -1,5 +1,11 @@
 /* Aplicamos el fondo al body de manera global */
 body {
+    background-color: #F7F5EB;
+    color: #333333;
+    overflow-x: hidden;
+}
+
+.background-img{
     background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
                 url('/fondo_intro.webp') no-repeat center center fixed;
     background-size: cover;

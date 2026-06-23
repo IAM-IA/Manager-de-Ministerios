@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import '../css/inicio_sesion.css'
 import Footer from '../components/Footer';
 
 export default function InicioSesion() {
@@ -53,48 +54,50 @@ export default function InicioSesion() {
   };
 
   return (
-    <div className="vista-login">
+    <div className="background-img">
+      <div className="vista-login">
       
-      {/* Botón de retorno optimizado con Link apuntando al index */}
-      <Link to="/">
-        <img src="/flecha.png" className="boton-volver" alt="Volver a la página de bienvenida" />
-      </Link>
+        {/* Botón de retorno optimizado con Link apuntando al index */}
+        <Link to="/">
+          <img src="/flecha.png" className="boton-volver" alt="Volver a la página de bienvenida" />
+        </Link>
 
-      {/* Encabezado del módulo de inicio de sesión */}
-      <header className="titulo-insesion">
-        Iniciar Sesión
-      </header>
+        {/* Encabezado del módulo de inicio de sesión */}
+        <header className="titulo-insesion">
+          Iniciar Sesión
+        </header>
 
-      {/* Formulario conectado al controlador de React */}
-      <form onSubmit={manejarLogin} className="formulario-ingresar">
-            
-        {/* Campos vinculados con sus respectivos estados de React */}
-        <input 
-          type="email" 
-          placeholder="Correo Electrónico..." 
-          className="campo" 
-          value={correo}
-          onChange={(e) => setCorreo(e.target.value)}
-          required 
-        />
-        
-        <input 
-          type="password" 
-          placeholder="Contraseña..." 
-          className="campo" 
-          value={contrasena}
-          onChange={(e) => setContrasena(e.target.value)}
-          required 
-        />
+        {/* Formulario conectado al controlador de React */}
+        <form onSubmit={manejarLogin} className="formulario-ingresar">
+              
+          {/* Campos vinculados con sus respectivos estados de React */}
+          <input 
+            type="email" 
+            placeholder="Correo Electrónico..." 
+            className="campo" 
+            value={correo}
+            onChange={(e) => setCorreo(e.target.value)}
+            required 
+          />
+          
+          <input 
+            type="password" 
+            placeholder="Contraseña..." 
+            className="campo" 
+            value={contrasena}
+            onChange={(e) => setContrasena(e.target.value)}
+            required 
+          />
 
-        {/* Controles de envío y enlaces secundarios */}
-        <button type="submit" className="boton-blanco-grande">Ingresar</button>
-        <Link to="/registro" className="enlace-final">¿No tienes una cuenta?</Link>
+          {/* Controles de envío y enlaces secundarios */}
+          <button type="submit" className="boton-blanco-grande">Ingresar</button>
+          <Link to="/registro" className="enlace-final">¿No tienes una cuenta?</Link>
 
-      </form>
+        </form>
 
-      {/* Insertamos el Footer al final de la pantalla de inicio de sesión */}
-      <Footer />
+        {/* Insertamos el Footer al final de la pantalla de inicio de sesión */}
+        <Footer />
+      </div>
     </div>
   );
 }

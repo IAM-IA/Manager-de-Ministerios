@@ -10,9 +10,18 @@
    El fondo se hereda globalmente desde el index o se mantiene aquí si es necesario.
 */
 body {
+    background-color: #F7F5EB;
+    color: #333333;
+    overflow-x: hidden;
+}
+
+.background-img{
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                url('/fondo_intro.webp') no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'Segoe UI', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
 }
 
 /* 

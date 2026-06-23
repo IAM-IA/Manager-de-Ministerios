@@ -6,7 +6,7 @@ import '../css/crear_evento.css';
 export default function CrearEvento() {
   const navigate = useNavigate();
 
-  // 1. Variables de estado para el formulario
+  // 1. Estados para capturar las entradas del formulario
   const [nombre, setNombre] = useState('');
   const [fecha, setFecha] = useState('');
   const [descripcion, setDescripcion] = useState('');
@@ -15,39 +15,38 @@ export default function CrearEvento() {
   const [responsable2, setResponsable2] = useState('');
   const [responsable3, setResponsable3] = useState('');
 
-  // 2. NUEVA VARIABLE: Aquí guardaremos la lista de personas reales de la BD
+  // 2. Estado para almacenar los usuarios reales de la base de datos
   const [usuariosBD, setUsuariosBD] = useState([]);
 
-  // 3. NUEVO BLOQUE: Va al backend a traer los usuarios registrados apenas carga la página
+  // 3. Petición GET al backend para listar los usuarios al cargar el módulo
   useEffect(() => {
     const traerUsuarios = async () => {
       try {
-        // Usamos el endpoint que tú mismo creaste en tu UsuarioController
         const respuesta = await fetch('http://localhost:8081/usuario/mostrar');
         if (respuesta.ok) {
           const listaDeUsuarios = await respuesta.json();
-          setUsuariosBD(listaDeUsuarios); // Guardamos la gente real en el estado
+          setUsuariosBD(listaDeUsuarios); 
         }
       } catch (error) {
-        console.error("Error al conectar con el backend:", error);
+        console.error("Error al conectar con el backend de Spring Boot:", error);
       }
     };
 
     traerUsuarios();
-  }, []); // El array vacío [] hace que solo busque los usuarios una vez al abrir la pantalla
+  }, []); 
 
-  // 4. Función para mandar los datos del evento al Backend
+  // 4. Controlador de envío del formulario (Petición POST)
   const manejarCrearEvento = async (e) => {
     e.preventDefault();
 
-    // Juntamos los IDs seleccionados (Ej: "1,2")
-    const idsUnidos = [responsable1, responsable2, responsable3].filter(Boolean).join(',');
-
+    // Construcción del objeto JSON con los 3 IDs numéricos independientes requeridos por JPA
     const nuevoEvento = {
       nombre: nombre,
       fecha: fecha,
-      idUsuario: idsUnidos, 
-      descripcion: descripcion
+      descripcion: descripcion,
+      idUsuario: Number(responsable1),
+      idUsuario2: Number(responsable2),
+      idUsuario3: Number(responsable3)
     };
 
     try {
@@ -60,13 +59,13 @@ export default function CrearEvento() {
       });
 
       if (respuesta.ok) {
-        alert('¡Evento creado exitosamente con sus responsables reales!');
+        alert('¡Evento creado exitosamente con sus 3 anfitriones requeridos!');
         navigate('/general');
       } else {
-        alert('Error al intentar crear el evento.');
+        alert('Error al intentar crear el evento. Revisa la integridad en la BD.');
       }
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error de red:', error);
       alert('No se pudo conectar con el servidor de Spring Boot.');
     }
   };
@@ -77,101 +76,122 @@ export default function CrearEvento() {
 
       <div className="contenido-principal contenedor-centrado-formulario">
         
+        {/* Cabecera externa adaptada al contraste claro de la interfaz */}
         <header className="cabecera-modulo">
           <h1 className="titulo-principal">Crear Evento</h1>
         </header>
 
+        {/* Tarjeta contenedora azul optimizada */}
         <div className="tarjeta-formulario-azul">
           <form onSubmit={manejarCrearEvento} className="formulario-evento-interno">
             
-            <div className="grupo-input">
-              <input 
-                type="text" 
-                placeholder="Nombre del evento..." 
-                className="campo-redondo"
-                value={nombre}
-                onChange={(e) => setNombre(e.target.value)}
-                required 
-              />
+            {/* Grilla dinámica de dos columnas */}
+            <div className="grilla-formulario">
+              
+              {/* Campo Nombre */}
+              <div className="grupo-input campo-nombre">
+                <input 
+                  type="text" 
+                  placeholder="Nombre del evento..." 
+                  className="campo-redondo"
+                  value={nombre}
+                  onChange={(e) => setNombre(e.target.value)}
+                  required 
+                />
+              </div>
+
+              {/* Campo Fecha */}
+              <div className="grupo-input campo-fecha">
+                <input 
+                  type="date" 
+                  className="campo-redondo selector-interno"
+                  value={fecha}
+                  onChange={(e) => setFecha(e.target.value)}
+                  required 
+                />
+              </div>
+
+              {/* Campo Descripción */}
+              <div className="grupo-input campo-descripcion">
+                <textarea 
+                  placeholder="Descripción del evento..." 
+                  className="campo-redondo area-texto"
+                  value={descripcion}
+                  onChange={(e) => setDescripcion(e.target.value)}
+                  required
+                />
+              </div>
+
+              {/* Selector 1: Anfitrión Obligatorio 1 */}
+              <div className="grupo-input campo-anfitrion1">
+                <label className="etiqueta-formulario">Anfitrión 1 (Obligatorio)</label>
+                <select 
+                  className="campo-redondo selector-interno"
+                  value={responsable1}
+                  onChange={(e) => {
+                    setResponsable1(e.target.value);
+                    if(responsable2 === e.target.value) setResponsable2('');
+                    if(responsable3 === e.target.value) setResponsable3('');
+                  }}
+                  required
+                >
+                  <option value="">Selecciona el anfitrión principal...</option>
+                  {usuariosBD.map((usuario) => (
+                    <option key={`resp1-${usuario.id}`} value={usuario.id}>
+                      {usuario.nombre} ({usuario.rol})
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Selector 2: Anfitrión Obligatorio 2 */}
+              <div className="grupo-input campo-anfitrion2">
+                <label className="etiqueta-formulario">Anfitrión 2 (Obligatorio)</label>
+                <select 
+                  className="campo-redondo selector-interno"
+                  value={responsable2}
+                  onChange={(e) => {
+                    setResponsable2(e.target.value);
+                    if(responsable3 === e.target.value) setResponsable3('');
+                  }}
+                  required
+                >
+                  <option value="">Selecciona...</option>
+                  {usuariosBD
+                    .filter(u => String(u.id) !== responsable1) // Filtra para no repetir el anfitrión 1
+                    .map((usuario) => (
+                      <option key={`resp2-${usuario.id}`} value={usuario.id}>
+                        {usuario.nombre}
+                      </option>
+                    ))}
+                </select>
+              </div>
+
+              {/* Selector 3: Anfitrión Obligatorio 3 */}
+              <div className="grupo-input campo-anfitrion3">
+                <label className="etiqueta-formulario">Anfitrión 3 (Obligatorio)</label>
+                <select 
+                  className="campo-redondo selector-interno"
+                  value={responsable3}
+                  onChange={(e) => setResponsable3(e.target.value)}
+                  required
+                >
+                  <option value="">Selecciona...</option>
+                  {usuariosBD
+                    .filter(u => String(u.id) !== responsable1 && String(u.id) !== responsable2) // Evita repetir 1 y 2
+                    .map((usuario) => (
+                      <option key={`resp3-${usuario.id}`} value={usuario.id}>
+                        {usuario.nombre}
+                      </option>
+                    ))}
+                </select>
+              </div>
+
             </div>
 
-            <div className="grupo-input">
-              <input 
-                type="date" 
-                className="campo-redondo selector-interno"
-                value={fecha}
-                onChange={(e) => setFecha(e.target.value)}
-                required 
-              />
-            </div>
-
-            <div className="grupo-input">
-              <textarea 
-                placeholder="Descripción..." 
-                className="campo-redondo area-texto"
-                value={descripcion}
-                onChange={(e) => setDescripcion(e.target.value)}
-                required
-              />
-            </div>
-
-            {/* Selector 1: Responsable Principal */}
-            <div className="grupo-input">
-              <p className="etiqueta-formulario">Anfitrion 1 (Obligatorio)</p>
-              <select 
-                className="campo-redondo selector-interno"
-                value={responsable1}
-                onChange={(e) => setResponsable1(e.target.value)}
-                required
-              >
-                <option value="">Selecciona el anfitrion...</option>
-                {/* 👇 CAMBIO CLAVE: Recorremos la lista de la BD para pintar las opciones de forma real */}
-                {usuariosBD.map((usuario) => (
-                  <option key={`resp1-${usuario.id}`} value={usuario.id}>
-                    {usuario.nombre} ({usuario.rol})
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Selector 2: Segundo Responsable */}
-            <div className="grupo-input">
-              <p className="etiqueta-formulario">Anfitrion 2 (Opcional)</p>
-              <select 
-                className="campo-redondo selector-interno"
-                value={responsable2}
-                onChange={(e) => setResponsable2(e.target.value)}
-              >
-                <option value="">Selecciona el anfitrion...</option>
-                {/* Volvemos a recorrer la lista real para el segundo selector */}
-                {usuariosBD.map((usuario) => (
-                  <option key={`resp2-${usuario.id}`} value={usuario.id}>
-                    {usuario.nombre} ({usuario.rol})
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Selector 3: Tercer Responsable */}
-            <div className="grupo-input">
-              <p className="etiqueta-formulario">Anfitrion 3(Opcional)</p>
-              <select 
-                className="campo-redondo selector-interno"
-                value={responsable3}
-                onChange={(e) => setResponsable3(e.target.value)}
-              >
-                <option value="">Selecciona el anfitrion...</option>
-                {/* Volvemos a recorrer la lista real para el tercer selector */}
-                {usuariosBD.map((usuario) => (
-                  <option key={`resp3-${usuario.id}`} value={usuario.id}>
-                    {usuario.nombre} ({usuario.rol})
-                  </option>
-                ))}
-              </select>
-            </div>
-
+            {/* Botón de envío centrado */}
             <button type="submit" className="boton-crear-blanco">
-              Crear
+              Crear Evento
             </button>
 
           </form>
