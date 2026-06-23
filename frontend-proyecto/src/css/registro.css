@@ -1,0 +1,189 @@
+/**
+ * @author Ismael
+ * @version 1.0
+ * @description Estilos estructurales y visuales para el modulo de registro de usuarios.
+ *              Administra la experiencia adaptativa y los estados visuales del formulario.
+ */
+
+/* 
+   Dejamos el body limpio. 
+   El fondo se hereda globalmente desde el index o se mantiene aquí si es necesario.
+*/
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* 
+   ¡EL TRUCO DE CONTROL DE ESPACIO! 
+   Encapsula el centrado Flexbox en la vista de React para que la caja 
+   y el título queden alineados a la perfección en pantallas completas.
+*/
+.vista-registro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+}
+
+/* Ubicacion e interaccion del boton de regreso */
+.boton-volver {
+    position: fixed;     
+    top: 20px;           
+    left: 20px;      
+    z-index: 1000;       
+    width: 45px;         
+    height: auto;          
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.boton-volver:hover {
+    transform: scale(1.1);
+}
+
+/* Titulo del contenedor de registro */
+.titulo-registro {
+    background-color: #164b6ed0;
+    padding: 8px 35px;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #FFFFFF;
+    /* Mantenemos tu posicionamiento original adaptado */
+    margin-top: -110px;
+}
+
+/* Caja de formulario con efectos de transparencia y desenfoque */
+.formulario-registro {
+    background-color: rgba(44, 62, 80, 0.7);
+    width: 350px;
+    padding: 30px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Formateo de los campos de texto de entrada */
+.campo {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+}
+
+/* Estilo del texto de las preguntas de seleccion */
+.pregunta {
+    color: #FFFFFF;
+    font-weight: bold;
+    margin: 15px 0 10px 0;
+}
+
+/* Fuentes auxiliares secundarias */
+.texto-pequeno {
+    color: #FFFFFF;
+    font-size: 12px;
+    text-align: center;
+    margin: 5px 0 15px 0;
+}
+
+/* Enlaces de redireccion externa */
+.enlace-final {
+    color: #FFFFFF;
+    font-size: 13px;
+    margin-top: 15px;
+    text-decoration: none;
+}
+
+.enlace-final:hover {
+    text-decoration: underline;
+}
+
+/* Contenedor lineal para los radio buttons */
+.contenedor-opciones {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+/* Remueve la visualizacion del radio nativo de los navegadores */
+.opcion-blanca input {
+    display: none;
+}
+
+/* Diseno simulado de boton para la seleccion de roles */
+.opcion-blanca span {
+    background-color: #FFFFFF;
+    color: #000000;
+    padding: 8px 25px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+/* Comportamiento visual de seleccion activa */
+.opcion-blanca input:checked + span {
+    background-color: #122d73;
+    color: #FFFFFF;
+}
+
+/* Boton de envio de informacion del formulario */
+.boton-blanco-grande {
+    background-color: #FFFFFF;
+    color: #000000;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.boton-blanco-grande:hover {
+    background-color: #DDDDDD;
+    transform: scale(1.02);
+}
+
+/* El estilo de la barra inferior se mantiene pero ya es controlado globalmente */
+.barra-inferior {
+    background-color: #164b6ede;
+    color: #FFFFFF;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    padding: 10px 30px; 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    box-sizing: border-box; 
+}
+
+.footer-izquierdo {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+}
+
+.texto-footer {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.icono-footer {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+}

@@ -1,0 +1,140 @@
+/**
+ * @author Ismael
+ * @version 1.0
+ * @description Estilos estructurales y efectos de interfaz para el modulo de autenticacion.
+ */
+
+/* Configuración limpia del body heredando fuentes globales */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* 
+   ¡EL CONTENEDOR INTEGRAL DE REACT! 
+   Maneja el espacio real de la pantalla y centra el Login sin desfasar el título.
+*/
+.vista-login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+}
+
+/* Control posicional fijo e interaccion del boton de retorno */
+.boton-volver {
+    position: fixed;     
+    top: 20px;           
+    left: 20px;      
+    z-index: 1000;       
+    width: 45px;         
+    height: auto;          
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.boton-volver:hover {
+    transform: scale(1.1);
+}
+
+/* Encabezado visual de la tarjeta de login */
+.titulo-insesion {
+    background-color: #164b6ed0;
+    padding: 8px 35px;
+    font-size: 16px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: #FFFFFF;
+    /* Mantenemos tu ajuste de posición vertical original */
+    margin-top: -110px;
+}
+
+/* Contenedor del formulario con desenfoque de fondo y transparencias */
+.formulario-ingresar {
+    background-color: rgba(44, 62, 80, 0.7);
+    width: 350px;
+    padding: 30px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Formateo general de los campos de entrada de texto */
+.campo {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+}
+
+/* Enlaces secundarios de navegacion interna */
+.enlace-final {
+    color: #FFFFFF;
+    font-size: 13px;
+    margin-top: 15px;
+    text-decoration: none;
+}
+
+.enlace-final:hover {
+    text-decoration: underline;
+}
+
+/* Boton de envio principal de datos */
+.boton-blanco-grande {
+    background-color: #FFFFFF;
+    color: #000000;
+    border: none;
+    padding: 10px 35px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Control de transiciones en estado hover */
+.boton-blanco-grande:hover {
+    background-color: #DDDDDD;
+    transform: scale(1.03);
+}
+
+/* Barra inferior de identidad corporativa y footer controlado globalmente */
+.barra-inferior {
+    background-color: #164b6ede;
+    color: #FFFFFF;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    padding: 10px 30px; 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    box-sizing: border-box; 
+}
+
+.footer-izquierdo {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+}
+
+.texto-footer {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.icono-footer {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+}

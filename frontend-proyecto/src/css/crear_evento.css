@@ -1,0 +1,113 @@
+/* ==========================================================================
+   Estilos para el Módulo de Crear Evento (Estructura Limpia para PC)
+   ========================================================================== */
+
+/* Contenedor que centra la tarjeta azul en el espacio disponible al lado de la barra */
+.contenedor-centrado-formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+/* Tarjeta contenedora azul basada en tu paleta de colores corporativos */
+.tarjeta-formulario-azul {
+    background-color: #4B6B83;
+    width: 100%;
+    max-width: 550px; /* Tamaño ideal para que no se estire demasiado en pantallas de PC */
+    padding: 40px 35px;
+    border-radius: 20px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    margin-top: 15px;
+}
+
+/* Distribución interna del formulario en una sola columna vertical */
+.formulario-evento-interno {
+    display: flex;
+    flex-direction: column;
+    gap: 22px; /* Separación vertical uniforme entre campos */
+}
+
+/* Contenedor individual para cada campo de texto o selector */
+.grupo-input {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+}
+
+/* Títulos descriptivos "Siervos" y "Líder" encima de los selectores */
+.etiqueta-formulario {
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 1.05rem;
+    text-align: left;
+    padding-left: 10px;
+    letter-spacing: 0.5px;
+}
+
+/* Estilo unificado y ultra-redondeado para todos los inputs y combobox */
+.campo-redondo {
+    width: 100%;
+    padding: 14px 20px;
+    border-radius: 30px; /* Bordes ovalados idénticos a tus interfaces previas */
+    border: none;
+    background-color: #FFFFFF;
+    font-size: 1rem;
+    color: #333333;
+    outline: none;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Color gris suave para los textos de ayuda (Placeholders) */
+.campo-redondo::placeholder {
+    color: #888888;
+}
+
+/* Ajuste específico para el cuadro grande de descripción */
+.campo-redondo.area-texto {
+    resize: none; /* Bloquea que el usuario pueda deformar el cuadro con el mouse */
+    height: 110px; /* Altura suficiente para escribir párrafos */
+    border-radius: 20px; /* Redondeado ligeramente menor para cajas grandes */
+}
+
+/* Estilización de la flecha de los menú desplegables (Select) */
+.selector-interno {
+   /* appearance: none; Quita la flecha fea por defecto de los navegadores
+    -webkit-appearance: none;
+    -moz-appearance: none;*/
+    /* Insertamos una flecha limpia en formato SVG que combina con tu diseño */
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://w3.org' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23333333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+    background-size: 18px;
+    cursor: pointer;
+}
+
+/* Botón "Crear" ovalado y centrado en la parte inferior de la tarjeta */
+.boton-crear-blanco {
+    background-color: #FFFFFF;
+    color: #333333;
+    border: none;
+    padding: 12px 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 30px;
+    cursor: pointer;
+    align-self: center; /* Se centra horizontalmente dentro del contenedor azul */
+    margin-top: 10px;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Animación sutil cuando pasas el mouse por encima del botón */
+.boton-crear-blanco:hover {
+    background-color: #F0F4F8;
+    transform: translateY(-2px); /* Eleva el botón levemente */
+}
+
+/* Pequeño ajuste para cuando el botón es presionado */
+.boton-crear-blanco:active {
+    transform: translateY(0);
+}

@@ -1,0 +1,252 @@
+/**
+ * @file general.css
+ * @description Estilos base del sistema y barra de navegación lateral.
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #F7F5EB;
+    color: #333333;
+    overflow-x: hidden;
+}
+
+/* Contenedor general en formato escritorio */
+.interfaz-escritorio {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+}
+
+/* Área central de contenidos */
+.contenido-principal {
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Distribución de doble columna para el Calendario */
+.distribucion-columnas {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* Barra de Navegación Lateral */
+.panel-lateral {
+    background-color: #2B4C6F;
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+}
+
+/* Bloque superior: Identidad del usuario activo */
+.capsula-nombre {
+    background-color: #4A6B82;
+    padding: 12px 20px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #FFFFFF;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.icono-usuario {
+    font-size: 1.2rem;
+}
+
+/* Bloque central: Forzado a quedarse exactamente en el centro de la barra */
+.menu-navegacion {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    margin-top: auto;    /* 👈 Empuja desde arriba */
+    margin-bottom: 0px; /* 👈 Empuja desde abajo, dejándolo centrado perfecto */
+}
+
+.enlace-navegacion {
+    background-color: #4A6B82;
+    color: #FFFFFF;
+    text-decoration: none;
+    text-align: center;
+    padding: 12px 15px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+}
+
+.enlace-navegacion:hover {
+    background-color: #3b596f;
+    transform: translateY(-2px);
+}
+
+/* Bloque inferior: Branding (Imán pegado al piso) */
+.branding-inferior {
+    margin-top: auto; 
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+}
+
+.logo-proyecto {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.texto-rol {
+    color: #FFFFFF;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 15px;
+    width: 100%;
+}
+
+/* Botón de Cerrar Sesión con el contorno de la interfaz */
+.boton-cerrar-sesion {
+    background-color: #4A6B82;
+    color: #FFFFFF;
+    border: none;
+    width: 100%;
+    padding: 11px 15px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
+}
+
+.boton-cerrar-sesion:hover {
+    background-color: #3b596f;
+    transform: translateY(-2px);
+}
+
+/* Calendario */
+.titulo-principal {
+    background-color: #4B6B83;
+    color: #FFFFFF;
+    display: inline-block;
+    padding: 15px 40px;
+    border-radius: 15px;
+    font-size: 1.8rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.bloque-calendario {
+    background-color: #FFFFFF;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.grilla-dias {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 12px;
+}
+
+.dia-tarjeta {
+    background-color: #FFFFFF;
+    border-top: 5px solid #1E74E7;
+    border-left: 1px solid #DDDDDD;
+    border-right: 1px solid #DDDDDD;
+    border-bottom: 1px solid #DDDDDD;
+    padding: 15px 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #222222;
+    transition: background-color 0.2s ease;
+}
+
+.dia-tarjeta:hover {
+    background-color: #F0F4F8;
+    cursor: pointer;
+}
+
+.dia-tarjeta.hoy {
+    background-color: #1E74E7;
+    color: #FFFFFF;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.dia-tarjeta.vacio {
+    border: none;
+    background: transparent;
+    pointer-events: none;
+}
+
+.contenedor-eventos {
+    background-color: #4B6B83;
+    border-radius: 15px;
+    padding: 25px;
+    color: #FFFFFF;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.subtitulo-eventos {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.lista-eventos {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.tarjeta-evento {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.dia-evento {
+    background-color: #FFFFFF;
+    color: #333333;
+    font-weight: bold;
+    font-size: 1.5rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.detalle-evento {
+    background-color: #1F364D;
+    color: #FFFFFF;
+    padding: 15px 25px;
+    border-radius: 30px;
+    font-weight: 500;
+    flex-grow: 1;
+    font-size: 1rem;
+}

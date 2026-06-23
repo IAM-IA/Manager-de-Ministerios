@@ -1,0 +1,14 @@
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import './css/index.css'
+import './css/inicio_sesion.css'
+import './css/registro.css'
+import './css/general.css'
+import './css/crear_evento.css'
+import App from './App.jsx'
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
