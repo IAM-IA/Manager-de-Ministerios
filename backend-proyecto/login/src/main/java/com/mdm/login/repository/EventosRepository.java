@@ -1,16 +1,13 @@
 package com.mdm.login.repository;
 
-// Importa la entidad Eventos para trabajar con ella en la BD
 import com.mdm.login.model.Eventos;
-
-// Importa JpaRepository de Spring Data JPA
-// para acceder a metodos CRUD automaticos
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- * Define una interfaz llamada EventosRepository
- * que hereda de JpaRepository
+ * Interfaz de repositorio encargada del acceso y la persistencia de datos para la entidad {@link Eventos}.
+ * Hereda las capacidades de {@link JpaRepository}, proporcionando de forma nativa e implícita las 
+ * operaciones básicas de consulta, paginación, inserción y borrado sobre la base de datos relacional.
  * 
  * @author ismae
  * @version 1.0

@@ -8,131 +8,167 @@ La interfaz ha sido desarrollada bajo un enfoque de alta usabilidad, garantizand
 
 ## 👥 Control de Accesos y Permisos (Interfaz Múltiple)
 
-El software adapta su interfaz de forma dinámica según el rol del usuario autenticado y el ministerio al que pertenece:
+El software adapta su comportamiento y vistas de forma dinámica según el rol del usuario autenticado, recuperado de forma persistente desde el almacenamiento local de la sesión:
 
-*   **Rol Líder de Ministerio (Administrador):**
-    *   Acceso completo al calendario para la creación de eventos en fechas seleccionadas.
-    *   Asignación de usuarios Siervos responsables a cada evento.
-    *   Bandeja exclusiva para la visualización y gestión de comentarios recibidos.
-*   **Rol Siervo (Colaborador):**
-    *   Restricción total para la creación o modificación de eventos.
-    *   Visualización exclusiva de los eventos en los que se encuentra registrado como participante.
-    *   Sección de comentarios habilitada en cada evento para contactar directamente al Líder de Ministerio.
+*   **Líder de Ministerio (Rol: `LIDER`):**
+    *   Acceso completo al módulo de creación y estructuración de eventos.
+    *   Capacidad de asignar de forma obligatoria los tres (3) anfitriones requeridos por evento.
+    *   Privilegios avanzados para la administración y modificación de las actividades en el repositorio de datos.
+*   **Siervo / Anfitrión (Rol: `SIERVO`):**
+    *   Visualización exclusiva de los bloques y eventos próximos en el panel general.
+    *   Flujos de validación visual adaptados en el calendario según la fecha vigente del sistema.
+    *   Restricción perimetral en las interfaces de captura para evitar la manipulación no autorizada de registros.
 
 ---
 
 ## 📋 Requisitos del Sistema
 
 ### Requisitos Funcionales
-*   **Módulo de Autenticación (Login):** Sistema de registro para nuevos usuarios con selección de rol (Líder de Ministerio / Siervo) y almacenamiento seguro de perfiles para ingresos posteriores.
-*   **Calendario Automatizado:** Interfaz con fechas actualizadas que permite al Líder registrar actividades y salvar la información de manera permanente.
-*   **Canal de Comunicación (Comentarios):** Mensajería integrada dentro de los eventos para que los Siervos envíen observaciones directas al Líder del Ministerio.
-*   **Persistencia de Datos (Base de Datos):** Conexión a un sistema de base de datos para almacenar las fechas, eventos y perfiles de usuario de forma íntegra.
-*   **Sistema de Alertas (Notificaciones):** Módulo de recordatorios automáticos que avisa a los usuarios encargados con días de anticipación antes de la ejecución del evento.
+*   **Módulo de Autenticación Centralizado:** Captura de credenciales, autenticación agnóstica de mayúsculas mediante Streams y asignación de etiquetas legibles en sesión (`Líder de Ministerio` o `Siervo / Anfitrión`).
+*   **Calendario Dinámico Automatizado:** Renderizado en grilla bidimensional basado en el tiempo real del sistema (`java.time.LocalDate` y objeto `Date` nativo), con cálculo de desbordamiento de días y ajuste de índice semanal.
+*   **Control de Duplicidad de Anfitriones:** Lógica perimetral en el cliente que filtra y deshabilita selectores previos para impedir de forma estricta la asignación del mismo usuario en múltiples roles de un mismo evento.
+*   **Persistencia Relacional Avanzada:** Mapeo de objetos de negocio con tipos de datos específicos de base de datos (columnas `TEXT` para descripciones largas y restricciones de unicidad).
+*   **Cierre de Sesión Seguro:** Mecanismo de invalidación completa de la API del navegador (`sessionStorage.clear()`) con redirección inmediata al flujo de login para mitigar accesos por historial.
 
 ### Requisitos No Funcionales
-*   **Diseño Accesible:** Interfaz gráfica limpia, simple y de fácil navegación para reducir la curva de aprendizaje en adultos mayores.
-*   **Rendimiento Óptimo:** Procesamiento de solicitudes ágil y despliegue rápido de la información del calendario.
-*   **Estabilidad del Sistema:** Arquitectura robusta configurada para mitigar caídas del servidor, prevenir errores de escritura en la base de datos y controlar eficientemente los picos de uso masivo.
-*   **Mantenimiento Sostenible:** Código estructurado que facilita la vigilancia continua, depuración de errores en tiempo de ejecución y futuras actualizaciones de desarrollo.
----
-
-## 📂 Estructura del Proyecto (Arquitectura de Directorios)
-
-El proyecto organiza sus archivos distribuyendo el código, los estilos y los recursos multimedia en tres carpetas principales en la raíz del repositorio:
-
-├── README.md               # Documentación general del sistema
-├── CSS/
-│   ├── index.css           # Estilos de la página de bienvenida
-│   ├── inicio_sesion.css   # Estilos del módulo de autenticación
-│   ├── registro.css        # Estilos del módulo de registro de usuarios
-│   └── principal.css       # Estilos del panel de escritorio del calendario
-├── HTML/
-│   ├── index.html          # Pantalla de bienvenida y acceso principal
-│   ├── inicio_sesion.html  # Formulario de inicio de sesión
-│   ├── registro.html       # Formulario de registro de cuentas
-│   └── principal.php       # Panel del calendario dinámico con control de sesión
-├── PHP/
-│   ├── conexion.php        # Script de conexión centralizada a MySQL (BD: mdm)
-│   ├── envio_registro.php  # Controlador para el procesamiento de nuevos usuarios
-│   └── login.php           # Controlador para la autenticación y apertura de sesiones
-└── IMG/
-    ├── flecha.png          # Icono de navegación gráfica / retorno
-    ├── fondo intro.png     # Imagen de fondo para las interfaces de acceso
-    ├── Logo MDM.png        # Identidad visual de Manager De Ministerios
-    └── logoSena.png        # Logotipo institucional (SENA)
+*   **Arquitectura Desacoplada (Decoupled Architecture):** Separación absoluta entre la capa de presentación (Single Page Application con React) y la capa de servicios empresariales (REST API con Spring Boot).
+*   **Mapeo de Datos Tipado (ORM):** Persistencia gestionada mediante JPA e Hibernate, abstrayendo las consultas SQL nativas a través de interfaces genéricas reutilizables.
+*   **Modularidad Estructurada:** Código JavaScript documentado bajo el estándar internacional **JSDoc** y código Java estructurado bajo el estándar **Javadoc** para garantizar mantenimiento sostenible y autogeneración de documentación.
+*   **Diseño de Grilla Bidimensional:** Maquetación CSS estructurada mediante combinaciones de *Flexbox* y *CSS Grid Layout*, garantizando la alineación perfecta de las tarjetas informativas sin desfasar los contenedores.
 
 ---
 
-## 🛠️ Tecnologías del Lado del Cliente (Frontend)
+## 📂 Estructura Arquitectónica del Proyecto
 
-*   **HTML**: Arquitectura estructurada de las páginas mediante formularios de ingreso, selectores de rol y manejo de hipervínculos relacionales.
-*   **CSS**: Hojas de estilo en cascada para la maquetación visual, diseño de botones interactivos y gestión de interfaces limpias orientadas al usuario final (Adulto Mayor).
+El ecosistema se encuentra dividido de forma estricta en dos repositorios o carpetas independientes para segmentar las responsabilidades de desarrollo:
+
+### 🌐 1. Carpeta Frontend (`frontend-proyecto`)
+Desarrollado en React con Vite, gestionando un enrutamiento del lado del cliente y estilos modulares.
+```text
+frontend-proyecto/
+├── src/
+│   ├── App.jsx             # Enrutador global y mapeo de rutas URL (React Router)
+│   ├── main.jsx            # Punto de entrada principal y montaje del árbol en el DOM
+│   ├── components/
+│   │   ├── Navbar.jsx      # Panel lateral de navegación con estado de sesión y logout
+│   │   └── Footer.jsx      # Pie de página institucional con branding del proyecto y SENA
+│   ├── pages/
+│   │   ├── index.jsx       # Pantalla de inicio, bienvenida y accesos principales
+│   │   ├── registro.jsx    # Formulario de inscripción y alta de nuevos usuarios
+│   │   ├── inicio_sesion.jsx # Interfaz de captura de credenciales y login asíncrono
+│   │   └── general.jsx     # Panel de escritorio con calendario dinámico y eventos
+│   └── css/
+│       ├── index.css       # Estilos globales, degradados y vistas de bienvenida
+│       ├── registro.css    # Diseño de selectores simulados de rol y transiciones
+│       ├── inicio_sesion.css # Contenedores translúcidos y botones de retorno fijos
+│       ├── general.css     # Estilos de la Navbar, grilla del calendario y tarjetas
+│       └── crear_evento.css # Grid Layout dinámico en columnas para el formulario
+```
+
+### ☕ 2. Carpeta Backend (`backend-proyecto`)
+Desarrollado en Java con Spring Boot, estructurado bajo el patrón de arquitectura en capas (Controlador - Servicio - Repositorio - Modelo).
+```text
+backend-proyecto/
+└── src/main/java/com/mdm/login/
+    ├── controller/
+    │   ├── UsuarioController.java   # Endpoints REST para usuarios y lógica de autenticación
+    │   └── EventosController.java   # Endpoints REST para operaciones CRUD de actividades
+    ├── service/
+    │   ├── UsuarioServices.java     # Contrato abstracto para la lógica de usuarios
+    │   ├── UsuarioServicesImpl.java # Implementación concreta y persistencia de usuarios
+    │   ├── EventosServices.java     # Contrato abstracto para la gestión de eventos
+    │   └── EventosServicesImpl.java # Lógica de validación previa y mutación de eventos
+    ├── repository/
+    │   ├── UsuarioRepository.java   # Abstracción de datos con JpaRepository para usuarios
+    │   └── EventosRepository.java   # Abstracción de datos con JpaRepository para eventos
+    └── model/
+        ├── Usuario.java             # Entidad de persistencia ORM para la tabla 'usuarios'
+        └── Eventos.java             # Entidad de persistencia ORM para la tabla 'eventos'
+```
 
 ---
 
-## 🖥️ Tecnologías del Lado del Servidor y Persistencia (Backend)
+## 🛠️ Stack Tecnológico Utilizado
 
-*   **PHP**: Lenguaje encargado de la lógica de negocio, validación estricta de variables en peticiones `POST`, procesamiento dinámico de la grilla del calendario mensual y administración de variables globales de sesión (`session_start()`).
-*   **MySQL**: Sistema de gestión de bases de datos relacionales utilizado para el almacenamiento persistente de registros de usuarios en la tabla `usuario`.
-*   **Mecanismos de Seguridad (BCrypt)**: Implementación de la función nativa `password_hash()` y `password_verify()` para mitigar el almacenamiento de contraseñas en texto plano y asegurar los hashes cifrados en la base de datos.
+### Servidor y Persistencia (Backend)
+*   **Java SE (JDK 17+) & Spring Boot**: Framework core para el levantamiento del microservicio REST.
+*   **Spring Data JPA / Hibernate**: Implementación de Object-Relational Mapping (ORM) para la gestión automatizada de las transacciones SQL.
+*   **Lombok**: Biblioteca de optimización de código para la inyección de código (*boilerplate*) en tiempo de compilación (`@Data`).
+*   **MySQL & phpMyAdmin**: Motor de base de datos relacional para el almacenamiento persistente de los esquemas.
+
+### Cliente e Interfaz (Frontend)
+*   **React (Vite)**: Librería JavaScript para la construcción de interfaces de usuario basadas en componentes declarativos y reactivos.
+*   **React Router Dom**: Manejador oficial para el enrutamiento dinámico SPA (*Single Page Application*).
+*   **HTML5 Semántico**: Empleo de etiquetas semánticas (`aside`, `nav`, `main`, `section`, `header`, `label`) validadas bajo los estándares técnicos de desarrollo.
+*   **CSS3 Avanzado**: Estilos basados en metodologías de diseño modernas (*CSS Grid, Flexbox, Pseudo-clases `:checked` y pseudo-elementos*).
 
 ---
 
-## 🗄️ Estructura de la Base de Datos (MySQL)
+## 🗄️ Modelo Relacional y Persistencia Física (MySQL)
 
-El sistema opera sobre una base de datos relacional llamada `mdm`. A continuación, se detalla la estructura física exacta de la tabla de persistencia utilizada en el entorno de desarrollo:
+El motor ORM Hibernate de Spring Boot interactúa con las especificaciones del esquema físico mapeado. A continuación se detallan las estructuras persistidas en la base de datos `mdm`:
 
 ```sql
 CREATE DATABASE IF NOT EXISTS mdm;
 USE mdm;
 
-CREATE TABLE IF NOT EXISTS usuario (
-    Id INT(11) AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) NOT NULL,
-    correo VARCHAR(150) NOT NULL UNIQUE,
-    password VARCHAR(225) NOT NULL,
-    rol ENUM('líder', 'siervo') NOT NULL
+-- Tabla: usuarios (Persistida mediante Usuario.java)
+CREATE TABLE IF NOT EXISTS usuarios (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(150) NOT NULL,
+    correo VARCHAR(100) NOT NULL UNIQUE,
+    contrasena VARCHAR(255) NOT NULL,
+    rol VARCHAR(30) NOT NULL
+);
+
+-- Tabla: eventos (Persistida mediante Eventos.java)
+CREATE TABLE IF NOT EXISTS eventos (
+    id_eventos BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    fecha DATE NOT NULL,
+    id_usuario BIGINT NOT NULL,
+    id_usuario2 BIGINT NOT NULL,
+    id_usuario3 BIGINT NOT NULL,
+    descripcion TEXT NOT NULL
 );
 ```
----
-
-## ⚙️ Instrucciones de Ejecución en Entorno Local (Despliegue)
-
-Para desplegar y ejecutar la aplicación de forma local, es necesario contar con un entorno de desarrollo de pila local (como XAMPP, Laragon o WampServer).
-
-1.  **Clonar o mover** la carpeta completa del proyecto (`MDM`) dentro del directorio raíz de publicación de tu servidor local (en XAMPP la ruta obligatoria es `C:/xampp/htdocs/`).
-2.  **Iniciar los servicios** desde el panel de control de tu software de servidor local (activar módulos **Apache** y **MySQL**).
-3.  **Montar la base de datos**: Acceder a `http://localhost/phpmyadmin/`, crear una base de datos llamada `mdm` y estructurar la tabla `usuario` (con columnas para `id`, `nombre`, `correo`, `rol`, y `password`).
-4.  **Ejecutar en el navegador**: No abrir los archivos con doble clic. Acceder estrictamente mediante la dirección URL del servidor local:
-    *   `http://localhost/MDM/HTML/index.html`
 
 ---
 
-## 🔑 Módulo de Autenticación (Inicio de Sesión)
+## ⚙️ Instrucciones de Despliegue Local (Entorno de Desarrollo)
 
-La interfaz de inicio de sesión (`inicio_sesion.html`) actúa como el punto de validación de seguridad del sistema. Su objetivo técnico es recopilar las credenciales de los usuarios para verificar su identidad en la base de datos y otorgar los permisos correspondientes (Líder de Ministerio o Siervo).
+Para levantar el ecosistema completo en tu máquina local, sigue de forma estricta los siguientes pasos:
 
-### Componentes y Flujo de Interfaz
-*   **Campos de Captura**: Implementa entradas nativas optimizadas para formatos de correo electrónico (`type="email"`) y ocultamiento de caracteres confidenciales (`type="password"`).
-*   **Control de Navegación**: Incorpora un botón de retorno rápido (`flecha.png`) conectado directamente con la raíz del módulo de bienvenida (`index.html`) para evitar callejones sin salida en la experiencia de usuario.
-*   **Enrutamiento Cruzado**: Enlace directo hacia la interfaz de inscripción (`registro.html`) para aquellos usuarios que no posean credenciales vigentes en el sistema.
+### 1. Preparación de la Base de Datos
+1. Abre tu panel de control local (**XAMPP, Laragon o WampServer**).
+2. Inicializa los servicios de **Apache** y **MySQL**.
+3. Navega a `http://localhost/phpmyadmin/`, crea una base de datos vacía llamada `mdm`. *Nota: Spring Boot generará o validará las tablas de forma automática al iniciar.*
+
+### 2. Ejecución del Servidor (Backend)
+1. Importa la carpeta `backend-proyecto` en tu IDE de preferencia (**NetBeans, IntelliJ IDEA o VS Code**).
+2. Asegúrate de tener configurado el puerto `8081` en tu archivo `src/main/resources/application.properties` para concordar con los *fetches* del cliente:
+   ```properties
+   server.port=8081
+   spring.datasource.url=jdbc:mysql://localhost:3006/mdm
+   spring.datasource.username=tu_usuario
+   spring.datasource.password=tu_contrasena
+   spring.jpa.hibernate.ddl-auto=update
+   ```
+3. Ejecuta el proyecto. La API REST quedará escuchando peticiones en `http://localhost:8081`.
+
+### 3. Ejecución del Cliente (Frontend)
+1. Abre una terminal de comandos apuntando directamente a la raíz de la carpeta `frontend-proyecto`.
+2. Instala el árbol de dependencias del proyecto ejecutando:
+   ```bash
+   npm install
+   ```
+3. Abre tu navegador web e ingresa a la dirección URL local provista por Vite, la cual está autorizada en la anotación `@CrossOrigin` del backend:
+   *   `http://localhost:5173`
 
 ---
 
-## 🛡️ Seguridad y Control de Sesión
+## 🔑 Especificaciones de los Módulos Críticos
 
-La aplicación implementa una capa de seguridad basada en el estado de las sesiones del servidor:
-*   **Validación de Sesión Activa:** El archivo `principal.php` verifica mediante `session_start()` la existencia de las variables globales de autenticación. Si un usuario intenta forzar la URL directamente en el navegador sin haberse logueado, el servidor intercepta la petición y lo redirige automáticamente hacia `inicio_sesion.html`.
-*   **Mitigación de Inyecciones de Código:** Toda inserción y consulta en la base de datos se ejecuta mediante sentencias preparadas (`prepare` y `bind_param`), evitando ataques de inyección SQL (SQLi).
-
----
-
-## 📝 Módulo de Registro (Inscripción de Usuarios)
-
-La interfaz de creación de cuentas (`registro.html`) es el punto de entrada de nuevos perfiles al sistema. Su función primordial es recopilar la información básica del usuario y obligarlo a declarar su rol operativo dentro de la iglesia para configurar sus privilegios de acceso desde el primer momento.
-
-### Componentes y Lógica de Negocio
-*   **Campos de Identidad**: Captura cadenas de texto plano para nombres y formatos validados para correos electrónicos.
-*   **Asignación de Roles**: Utiliza botones de selección única (`type="radio"`) bajo el identificador común `name="cargo"`. Esto restringe la elección a un solo rol por perfil (Líder o Siervo), vinculándose directamente con los requerimientos funcionales de permisos definidos en el sistema.
-*   **Validación Cruzada**: Cuenta con un enlace directo hacia la interfaz de inicio de sesión (`inicio_sesion.html`) para derivar el flujo en caso de que el usuario ya se encuentre registrado en la base de datos.
+*   **Módulo de Autenticación (`/login`):** Intercepta las peticiones enviando payloads JSON estructurados. Valida la coincidencia exacta de contraseñas y almacena de forma segura los atributos del usuario en el objeto `sessionStorage` para inicializar el estado del menú lateral.
+*   **Módulo de Registro (`/registro`):** Provee una interfaz con botones de selección de rol simulados visualmente mediante CSS sobre inputs ocultos, lo que permite un entorno gráfico moderno, capturando las llaves de seguridad requeridas por el modelo del sistema.
+*   **Módulo de Creación de Eventos (`/crear_evento`):** Implementa validaciones encadenadas en tiempo real. Al seleccionar los anfitriones, los hooks de React modifican el DOM para limpiar de forma automática selectores secundarios, asegurando la integridad relacional de JPA antes de enviar la petición `POST`.

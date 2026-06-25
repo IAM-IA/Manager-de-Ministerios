@@ -1,6 +1,8 @@
 /**
  * @file general.css
- * @description Estilos base del sistema y barra de navegación lateral.
+ * @section Sistema Global y Estructura Base
+ * @description Define el reinicio de estilos, tipografía base y las distribuciones 
+ * estructurales del área de trabajo e interfaces principales.
  */
 
 * {
@@ -11,17 +13,17 @@
 }
 
 body {
-    
+    background-color: #F7F5EB;
+    color: #333333;
+    overflow-x: hidden;
 }
 
-/* Contenedor general en formato escritorio */
 .interfaz-escritorio {
     display: grid;
     grid-template-columns: 280px 1fr;
     min-height: 100vh;
 }
 
-/* Área central de contenidos */
 .contenido-principal {
     padding: 40px;
     display: flex;
@@ -29,7 +31,6 @@ body {
     gap: 30px;
 }
 
-/* Distribución de doble columna para el Calendario */
 .distribucion-columnas {
     display: grid;
     grid-template-columns: 3fr 2fr;
@@ -37,7 +38,12 @@ body {
     align-items: start;
 }
 
-/* Barra de Navegación Lateral */
+/**
+ * @section Componente: Panel Lateral (Navbar)
+ * @description Estilos para la barra lateral fija con comportamiento sticky
+ * y control del flujo vertical de sus elementos hijos.
+ */
+
 .panel-lateral {
     background-color: #2B4C6F;
     padding: 30px 20px;
@@ -49,7 +55,6 @@ body {
     top: 0;
 }
 
-/* Bloque superior: Identidad del usuario activo */
 .capsula-nombre {
     background-color: #4A6B82;
     padding: 12px 20px;
@@ -66,14 +71,13 @@ body {
     font-size: 1.2rem;
 }
 
-/* Bloque central: Forzado a quedarse exactamente en el centro de la barra */
 .menu-navegacion {
     display: flex;
     flex-direction: column;
     gap: 15px;
     width: 100%;
-    margin-top: auto;    /* 👈 Empuja desde arriba */
-    margin-bottom: 0px; /* 👈 Empuja desde abajo, dejándolo centrado perfecto */
+    margin-top: auto;    
+    margin-bottom: 0px; 
 }
 
 .enlace-navegacion {
@@ -94,7 +98,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* Bloque inferior: Branding (Imán pegado al piso) */
 .branding-inferior {
     margin-top: auto; 
     display: flex;
@@ -122,7 +125,6 @@ body {
     width: 100%;
 }
 
-/* Botón de Cerrar Sesión con el contorno de la interfaz */
 .boton-cerrar-sesion {
     background-color: #4A6B82;
     color: #FFFFFF;
@@ -142,7 +144,12 @@ body {
     transform: translateY(-2px);
 }
 
-/* Calendario */
+/**
+ * @section Componente: Calendario Dinámico
+ * @description Cuadrícula multidimensional para renderizar las casillas
+ * numéricas de los días e indicar la fecha vigente del sistema.
+ */
+
 .titulo-principal {
     background-color: #4B6B83;
     color: #FFFFFF;
@@ -198,6 +205,12 @@ body {
     background: transparent;
     pointer-events: none;
 }
+
+/**
+ * @section Componente: Lista de Eventos Próximos
+ * @description Contenedores para el despliegue lateral de las actividades 
+ * y los bloques redondeados para los detalles.
+ */
 
 .contenedor-eventos {
     background-color: #4B6B83;

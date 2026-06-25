@@ -4,8 +4,9 @@ import com.mdm.login.model.Eventos;
 import java.util.List;
 
 /**
- * Interfaz que define los servicios CRUD para la gestion de eventos.
- * Sigue el patron de arquitectura en capas de Spring Boot.
+ * Interfaz de la capa de negocio que establece el contrato para la gestión operativa de la entidad {@link Eventos}.
+ * Define las operaciones abstractas del ciclo de vida CRUD y consultas especializadas que deben ser 
+ * implementadas por los servicios del sistema para garantizar el cumplimiento de las reglas de negocio.
  * 
  * @author Ismael
  * @version 1.0
@@ -13,35 +14,42 @@ import java.util.List;
 public interface EventosServices {
 
     /**
-     * Obtiene la lista completa de eventos registrados.
-     * @return Lista de entidades Eventos.
+     * Recupera la totalidad de los registros de eventos persistidos en la base de datos.
+     * 
+     * @return Una colección de tipo {@link List} que contiene todas las instancias de {@link Eventos}.
      */
     public List<Eventos> listarTodos();
 
     /**
-     * Registra un nuevo evento en el sistema.
-     * @param eventos Objeto con los datos a procesar.
-     * @return El objeto Eventos guardado con su respectivo ID.
+     * Procesa y almacena un nuevo registro de evento aplicando las reglas de validación vigentes.
+     * 
+     * @param eventos Instancia de tipo {@link Eventos} que transporta la información requerida para el alta.
+     * @return El objeto {@link Eventos} persistido con las propiedades asignadas por el motor de base de datos.
      */
     public Eventos guardar(Eventos eventos);
 
     /**
-     * Modifica un evento existente validando previamente su presencia en la BD.
-     * @param eventos Objeto con los nuevos datos.
-     * @return El evento actualizado o null si no se encontro.
+     * Actualiza la información estructural de un registro de evento previamente existente.
+     * 
+     * @param eventos Instancia de tipo {@link Eventos} que contiene las modificaciones técnicas a guardar.
+     * @return El objeto {@link Eventos} con los cambios consolidados en el medio de almacenamiento, 
+     *         o {@code null} si la entidad de referencia no es localizada en el repositorio.
      */
     public Eventos modifyEventos(Eventos eventos);
 
     /**
-     * Busca un evento en el sistema a partir de su ID unico.
-     * @param id Identificador de tipo Long.
-     * @return La entidad Eventos si es encontrada, o null en caso contrario.
+     * Efectúa una búsqueda selectiva dentro del repositorio de datos utilizando la clave primaria del registro.
+     * 
+     * @param id Identificador numérico de tipo {@link Long} representativo del evento requerido.
+     * @return La instancia de {@link Eventos} asociada al criterio de búsqueda, o {@code null} 
+     *         en caso de no existir correspondencia en el almacén de datos.
      */
     public Eventos buscarPorId(Long id);
 
     /**
-     * Elimina un registro de la base de datos de manera definitiva.
-     * @param id Identificador unico del evento a remover.
+     * Remueve de forma definitiva y permanente un registro de evento del almacén relacional de datos.
+     * 
+     * @param id Identificador numérico de tipo {@link Long} que indexa al registro específico que será borrado.
      */
     public void eliminar(Long id);
 }

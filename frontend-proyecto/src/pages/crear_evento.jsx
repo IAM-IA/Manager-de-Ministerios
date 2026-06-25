@@ -3,10 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import '../css/crear_evento.css';
 
+/**
+ * Componente que renderiza el formulario para la creación de un nuevo evento.
+ * Gestiona la selección obligatoria de tres anfitriones distintos consumiendo
+ * servicios de un backend en Spring Boot.
+ * 
+ * @component
+ * @returns {React.JSX.Element} Interfaz de usuario para registrar un evento.
+ */
 export default function CrearEvento() {
   const navigate = useNavigate();
 
-  // 1. Estados para capturar las entradas del formulario
   const [nombre, setNombre] = useState('');
   const [fecha, setFecha] = useState('');
   const [descripcion, setDescripcion] = useState('');
@@ -15,10 +22,8 @@ export default function CrearEvento() {
   const [responsable2, setResponsable2] = useState('');
   const [responsable3, setResponsable3] = useState('');
 
-  // 2. Estado para almacenar los usuarios reales de la base de datos
   const [usuariosBD, setUsuariosBD] = useState([]);
 
-  // 3. Petición GET al backend para listar los usuarios al cargar el módulo
   useEffect(() => {
     const traerUsuarios = async () => {
       try {
@@ -35,11 +40,15 @@ export default function CrearEvento() {
     traerUsuarios();
   }, []); 
 
-  // 4. Controlador de envío del formulario (Petición POST)
+  /**
+   * Procesa el envío del formulario, estructura la carga útil requerida por JPA
+   * y efectúa la petición POST de persistencia.
+   * 
+   * @param {React.FormEvent<HTMLFormElement>} e - Evento de envío del formulario.
+   */
   const manejarCrearEvento = async (e) => {
     e.preventDefault();
 
-    // Construcción del objeto JSON con los 3 IDs numéricos independientes requeridos por JPA
     const nuevoEvento = {
       nombre: nombre,
       fecha: fecha,
@@ -76,19 +85,15 @@ export default function CrearEvento() {
 
       <div className="contenido-principal contenedor-centrado-formulario">
         
-        {/* Cabecera externa adaptada al contraste claro de la interfaz */}
         <header className="cabecera-modulo">
           <h1 className="titulo-principal">Crear Evento</h1>
         </header>
 
-        {/* Tarjeta contenedora azul optimizada */}
         <div className="tarjeta-formulario-azul">
           <form onSubmit={manejarCrearEvento} className="formulario-evento-interno">
             
-            {/* Grilla dinámica de dos columnas */}
             <div className="grilla-formulario">
               
-              {/* Campo Nombre */}
               <div className="grupo-input campo-nombre">
                 <input 
                   type="text" 
@@ -100,7 +105,6 @@ export default function CrearEvento() {
                 />
               </div>
 
-              {/* Campo Fecha */}
               <div className="grupo-input campo-fecha">
                 <input 
                   type="date" 
@@ -111,7 +115,6 @@ export default function CrearEvento() {
                 />
               </div>
 
-              {/* Campo Descripción */}
               <div className="grupo-input campo-descripcion">
                 <textarea 
                   placeholder="Descripción del evento..." 
@@ -122,7 +125,6 @@ export default function CrearEvento() {
                 />
               </div>
 
-              {/* Selector 1: Anfitrión Obligatorio 1 */}
               <div className="grupo-input campo-anfitrion1">
                 <label className="etiqueta-formulario">Anfitrión 1 (Obligatorio)</label>
                 <select 
@@ -144,7 +146,6 @@ export default function CrearEvento() {
                 </select>
               </div>
 
-              {/* Selector 2: Anfitrión Obligatorio 2 */}
               <div className="grupo-input campo-anfitrion2">
                 <label className="etiqueta-formulario">Anfitrión 2 (Obligatorio)</label>
                 <select 
@@ -158,7 +159,7 @@ export default function CrearEvento() {
                 >
                   <option value="">Selecciona...</option>
                   {usuariosBD
-                    .filter(u => String(u.id) !== responsable1) // Filtra para no repetir el anfitrión 1
+                    .filter(u => String(u.id) !== responsable1) // Excluye el anfitrión seleccionado previamente para evitar duplicados.
                     .map((usuario) => (
                       <option key={`resp2-${usuario.id}`} value={usuario.id}>
                         {usuario.nombre}
@@ -167,7 +168,6 @@ export default function CrearEvento() {
                 </select>
               </div>
 
-              {/* Selector 3: Anfitrión Obligatorio 3 */}
               <div className="grupo-input campo-anfitrion3">
                 <label className="etiqueta-formulario">Anfitrión 3 (Obligatorio)</label>
                 <select 
@@ -178,7 +178,7 @@ export default function CrearEvento() {
                 >
                   <option value="">Selecciona...</option>
                   {usuariosBD
-                    .filter(u => String(u.id) !== responsable1 && String(u.id) !== responsable2) // Evita repetir 1 y 2
+                    .filter(u => String(u.id) !== responsable1 && String(u.id) !== responsable2) // Excluye los dos anfitriones seleccionados previamente para evitar duplicados.
                     .map((usuario) => (
                       <option key={`resp3-${usuario.id}`} value={usuario.id}>
                         {usuario.nombre}
@@ -189,7 +189,6 @@ export default function CrearEvento() {
 
             </div>
 
-            {/* Botón de envío centrado */}
             <button type="submit" className="boton-crear-blanco">
               Crear Evento
             </button>

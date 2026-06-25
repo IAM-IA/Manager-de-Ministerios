@@ -9,39 +9,48 @@ import jakarta.persistence.GenerationType;
 import lombok.Data;
 
 /**
- * Entidad de persistencia que representa a un usuario en el sistema.
- * Mapea directamente con la tabla 'usuarios' de la base de datos.
+ * Entidad de persistencia que representa a un usuario registrado dentro del sistema.
+ * Mapea las propiedades de la cuenta con los campos correspondientes de la base de datos relacional.
+ * Cuenta con configuraciones ORM para el manejo de llaves primarias, unicidad de cuentas 
+ * y longitudes máximas admisibles.
  * 
  * @author ismae
  * @version 1.0
  */
-@Entity // Define que esta clase es una entidad de JPA
-@Data   // Genera automáticamente getters y setters mediante Lombok
-@Table(name = "usuarios") // Especifica el nombre de la tabla en la base de datos
+@Entity
+@Data
+@Table(name = "usuarios")
 public class Usuario {
+    
     /**
-     * Identificador unico del usuario.
+     * Identificador único autoincremental asignado a la cuenta de usuario.
+     * Representa la clave primaria de la tabla relacional.
      */
-    @Id // Define la llave primaria de la tabla
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Configura el ID como autoincremental
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    
     /**
-     * Nombre completo del usuario.
+     * Nombre completo y apellidos del usuario registrado.
      */
     @Column(name = "nombre", nullable = false, length = 150)
     private String nombre;
+    
     /**
-     * Correo electronico unico para el inicio de sesion.
+     * Dirección de correo electrónico asociada al usuario.
+     * Actúa como identificador único y obligatorio para los procesos de inicio de sesión.
      */
     @Column(name = "correo", unique = true, nullable = false, length = 100)
     private String correo;
+    
     /**
-     * Contrasena encriptada del usuario.
+     * Clave secreta o cadena de autenticación de seguridad utilizada para validar el acceso.
      */
     @Column(name = "contrasena", nullable = false)
     private String contrasena;
+    
     /**
-     * Rol asignado dentro de la aplicacion.
+     * Clasificación o rol administrativo asignado para gestionar los permisos dentro de la aplicación.
      */
     @Column(name = "rol", nullable = false, length = 30)
     private String rol;

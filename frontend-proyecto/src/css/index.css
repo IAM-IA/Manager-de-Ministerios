@@ -1,4 +1,10 @@
-/* Aplicamos el fondo al body de manera global */
+/**
+ * @file index.css
+ * @section Configuraciones Globales y de Fondo
+ * @description Inicializa las propiedades cromáticas del cuerpo y establece la 
+ * capa de fondo con imágenes y degradados lineales fijos.
+ */
+
 body {
     background-color: #F7F5EB;
     color: #333333;
@@ -14,11 +20,12 @@ body {
     padding: 0;
 }
 
-/* 
-   ¡ESTE ES EL TRUCO! 
-   Le pasamos el centrado Flexbox a la vista interna de React 
-   para que maneje el espacio real de la pantalla.
-*/
+/**
+ * @section Layout de Bienvenida
+ * @description Distribuciones en Flexbox para el control del viewport completo
+ * y posicionamiento del encabezado de la aplicación.
+ */
+
 .vista-bienvenida {
     display: flex;
     flex-direction: column;
@@ -37,8 +44,23 @@ body {
     margin-bottom: 50px;
     font-weight: bold;
     color: white;
-    /* Mantenemos tu ajuste de posición original */
     margin-top: -110px;
+}
+
+/**
+ * @section Contenedor Central de Presentación
+ * @description Estilos para la tarjeta informativa del sistema y los flujos
+ * de botones de redirección interna.
+ */
+
+.caja-principal {
+    background-color: #164b6eca;
+    color: white;
+    padding: 40px;
+    width: 450px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    margin-top: -5px;
 }
 
 .contenedor-botones {
@@ -53,16 +75,6 @@ body {
     gap: 15px;        
 }
 
-.caja-principal {
-    background-color: #164b6eca;
-    color: white;
-    padding: 40px;
-    width: 450px;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    margin-top: -5px;
-}
-
 .fila-boton {
     display: flex;
     justify-content: flex-end;
@@ -70,6 +82,11 @@ body {
     gap: 15px;
     margin-bottom: 15px;
 }
+
+/**
+ * @section Controles de Acción (Botones)
+ * @description Transiciones de escala y color para las interacciones con el puntero.
+ */
 
 .boton {
     background-color: white;
@@ -83,11 +100,16 @@ body {
     box-shadow: 0 4px 10px rgba(0,0,0,0.2);
 }
 
-/* Efecto visual al pasar el mouse por encima */
 .boton:hover {
     background-color: #ecf0f1;
     transform: scale(1.05);
 }
+
+/**
+ * @section Componente: Barra Inferior (Footer)
+ * @description Posicionamiento fijo anclado a la base de la pantalla con
+ * distribución de elementos a los extremos del contenedor.
+ */
 
 .barra-inferior {
     background-color: #164b6ede;

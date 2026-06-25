@@ -1,10 +1,10 @@
 /**
- * @author Ismael
- * @version 1.0
- * @description Estilos estructurales y efectos de interfaz para el modulo de autenticacion.
+ * @file inicio_sesion.css
+ * @section Configuraciones del Entorno Global
+ * @description Ajusta el comportamiento del body de la vista y la persistencia
+ * de la imagen de fondo con máscara de contraste lineal.
  */
 
-/* Configuración limpia del body heredando fuentes globales */
 body {
     background-color: #F7F5EB;
     color: #333333;
@@ -20,10 +20,12 @@ body {
     padding: 0;
 }
 
-/* 
-   ¡EL CONTENEDOR INTEGRAL DE REACT! 
-   Maneja el espacio real de la pantalla y centra el Login sin desfasar el título.
-*/
+/**
+ * @section Estructura y Controles de Retorno
+ * @description Modela la interfaz de autenticación en Flexbox y controla el 
+ * posicionamiento fijo junto con las micro-interacciones del botón de retroceso.
+ */
+
 .vista-login {
     display: flex;
     flex-direction: column;
@@ -34,7 +36,6 @@ body {
     box-sizing: border-box;
 }
 
-/* Control posicional fijo e interaccion del boton de retorno */
 .boton-volver {
     position: fixed;     
     top: 20px;           
@@ -50,7 +51,12 @@ body {
     transform: scale(1.1);
 }
 
-/* Encabezado visual de la tarjeta de login */
+/**
+ * @section Componente: Tarjeta de Autenticación (Login)
+ * @description Estila el encabezado del módulo y el contenedor del formulario
+ * aplicando propiedades de transparencia translúcida y sombras proyectadas.
+ */
+
 .titulo-insesion {
     background-color: #164b6ed0;
     padding: 8px 35px;
@@ -59,11 +65,9 @@ body {
     margin-bottom: 20px;
     font-weight: bold;
     color: #FFFFFF;
-    /* Mantenemos tu ajuste de posición vertical original */
     margin-top: -110px;
 }
 
-/* Contenedor del formulario con desenfoque de fondo y transparencias */
 .formulario-ingresar {
     background-color: rgba(44, 62, 80, 0.7);
     width: 350px;
@@ -75,7 +79,12 @@ body {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
-/* Formateo general de los campos de entrada de texto */
+/**
+ * @section Elementos del Formulario y Controles de Acción
+ * @description Estila los campos de texto, enlaces secundarios y define las 
+ * transiciones de escala aplicadas al botón principal de envío de datos.
+ */
+
 .campo {
     width: 100%;
     padding: 12px;
@@ -86,7 +95,6 @@ body {
     box-sizing: border-box;
 }
 
-/* Enlaces secundarios de navegacion interna */
 .enlace-final {
     color: #FFFFFF;
     font-size: 13px;
@@ -98,7 +106,6 @@ body {
     text-decoration: underline;
 }
 
-/* Boton de envio principal de datos */
 .boton-blanco-grande {
     background-color: #FFFFFF;
     color: #000000;
@@ -111,13 +118,17 @@ body {
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-/* Control de transiciones en estado hover */
 .boton-blanco-grande:hover {
     background-color: #DDDDDD;
     transform: scale(1.03);
 }
 
-/* Barra inferior de identidad corporativa y footer controlado globalmente */
+/**
+ * @section Componente Compartido: Footer Institucional
+ * @description Posiciona la barra de identidad corporativa de forma fija en la
+ * base inferior de la pantalla alineando sus elementos subordinados.
+ */
+
 .barra-inferior {
     background-color: #164b6ede;
     color: #FFFFFF;

@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Controlador REST que gestiona las peticiones HTTP para la entidad Usuario.
- * Expone los endpoints de la API para las operaciones CRUD.
+ * Controlador REST encargado de exponer los endpoints HTTP para la gestión de la entidad Usuario.
+ * Administra el ciclo de vida de las cuentas, proporcionando operaciones CRUD básicas y el mecanismo
+ * de autenticación del sistema.
  * 
  * @author Ismae
  * @version 1.0
@@ -22,8 +23,10 @@ public class UsuarioController {
     private UsuarioServices usuarioServices;
 
     /**
-     * Endpoint para registrar un nuevo usuario mediante una peticion POST.
-     * Ruta HTTP: /usuario/nuevo
+     * Registra y persiste un nuevo usuario en la base de datos del sistema.
+     * 
+     * @param usuario Objeto de tipo {@link Usuario} que contiene la información estructurada de registro.
+     * @return El objeto {@link Usuario} guardado con sus propiedades e identificador asignado.
      */
     @PostMapping("/nuevo")
     public Usuario newUsuario(@RequestBody Usuario usuario) {
@@ -31,8 +34,9 @@ public class UsuarioController {
     }
 
     /**
-     * Endpoint para obtener la lista de todos los usuarios mediante una peticion GET.
-     * Ruta HTTP: /usuario/mostrar
+     * Recupera el listado completo de todos los usuarios registrados.
+     * 
+     * @return Una lista de tipo {@link List} que contiene todas las instancias de {@link Usuario}.
      */
     @GetMapping("/mostrar")
     public List<Usuario> getAll() {
@@ -40,9 +44,10 @@ public class UsuarioController {
     }
 
     /**
-     * Endpoint para actualizar un usuario existente mediante una peticion POST.
-     * Invoca la logica de validacion del servicio.
-     * Ruta HTTP: /usuario/modificar
+     * Modifica las propiedades e información de un perfil de usuario existente.
+     * 
+     * @param usuario Objeto de tipo {@link Usuario} con los datos actualizados a persistir.
+     * @return El objeto {@link Usuario} modificado con los cambios almacenados en el repositorio.
      */
     @PostMapping("/modificar")
     public Usuario updateUsuario(@RequestBody Usuario usuario) {
@@ -50,8 +55,9 @@ public class UsuarioController {
     }
 
     /**
-     * Endpoint para eliminar un usuario por su ID mediante una peticion DELETE.
-     * Ruta HTTP: /usuario/eliminar/{id}
+     * Elimina de forma permanente una cuenta de usuario del sistema mediante su identificador.
+     * 
+     * @param id Identificador numérico de tipo {@link Long} perteneciente al usuario que será removido.
      */
     @DeleteMapping("/eliminar/{id}")
     public void deleteUsuario(@PathVariable("id") Long id) {
@@ -59,25 +65,25 @@ public class UsuarioController {
     }
     
     /**
-     * Endpoint para validar las credenciales de inicio de sesion.
-     * Ruta HTTP: /usuario/login
+     * Evalúa las credenciales proporcionadas para autorizar o denegar el inicio de sesión.
+     * Efectúa una búsqueda lineal insensible a mayúsculas sobre los registros para validar el acceso.
+     * 
+     * @param usuario Objeto {@link Usuario} que transporta el correo y contraseña a validar.
+     * @return Un objeto {@link org.springframework.http.ResponseEntity} con estado HTTP 200 (OK) y los datos
+     *         del usuario autenticado, o un estado HTTP 401 (UNAUTHORIZED) con un mensaje descriptivo en caso de error.
      */
     @PostMapping("/login")
     public org.springframework.http.ResponseEntity<?> loginUsuario(@RequestBody Usuario usuario) {
-        // Busca al usuario por el correo electronico registrado
         java.util.Optional<Usuario> usuarioEncontrado = usuarioServices.listarTodos().stream()
                 .filter(u -> u.getCorreo().equalsIgnoreCase(usuario.getCorreo()))
                 .findFirst();
 
-        // Valida la existencia del usuario y la coincidencia de su contrasena
         if (usuarioEncontrado.isPresent() && 
             usuarioEncontrado.get().getContrasena().equals(usuario.getContrasena())) {
             
-            // Retorna una respuesta exitosa con los datos del usuario en sesion
             return org.springframework.http.ResponseEntity.ok(usuarioEncontrado.get());
         }
         
-        // Retorna un estado HTTP 401 si las credenciales son incorrectas
         return org.springframework.http.ResponseEntity.status(org.springframework.http.HttpStatus.UNAUTHORIZED)
                 .body("Credenciales incorrectas");
     }

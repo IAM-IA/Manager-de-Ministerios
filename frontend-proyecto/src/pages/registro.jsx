@@ -1,23 +1,33 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../css/registro.css'
-import Footer from '../components/Footer'; // Importamos el Footer para la vista de registro
+import Footer from '../components/Footer';
 
+/**
+ * Componente que renderiza el formulario de registro de nuevos usuarios.
+ * Captura información personal y el rol eclesiástico para dar de alta
+ * registros en el sistema a través del backend.
+ * 
+ * @component
+ * @returns {React.JSX.Element} Interfaz de registro con control de estados y selectores de rol.
+ */
 export default function Registro() {
-  // Estados de React para capturar los datos de los inputs en tiempo real
   const [nombre, setNombre] = useState('');
   const [correo, setCorreo] = useState('');
   const [rol, setRol] = useState('');
   const [contrasena, setContrasena] = useState('');
   
-  // Hook de React Router para redirigir al usuario programáticamente
   const navigate = useNavigate();
 
-  // Función lúdica que maneja el envío del formulario hacia tu backend
+  /**
+   * Envía los datos capturados del nuevo usuario al servicio de persistencia
+   * del backend. Si el alta es correcta, redirige a la vista de inicio de sesión.
+   * 
+   * @param {React.FormEvent<HTMLFormElement>} e - Evento de envío del formulario.
+   */
   const manejarRegistro = async (e) => {
-    e.preventDefault(); // Evita que la página se recargue por completo
+    e.preventDefault();
 
-    // Objeto estructurado idéntico a los atributos de tu clase Usuario.java
     const datosUsuario = {
       nombre: nombre,
       correo: correo,
@@ -26,7 +36,6 @@ export default function Registro() {
     };
 
     try {
-      // Hacemos la petición POST apuntando directo al servidor local de Spring Boot (Puerto 8081)
       const respuesta = await fetch('http://localhost:8081/usuario/nuevo', {
         method: 'POST',
         headers: {
@@ -37,7 +46,7 @@ export default function Registro() {
 
       if (respuesta.ok) {
         alert('Usuario registrado exitosamente en la base de datos.');
-        navigate('/login'); // Redirección interna a la vista de Login en React
+        navigate('/login');
       } else {
         alert('Error al registrar el usuario. Comprueba si el correo ya existe.');
       }
@@ -51,20 +60,16 @@ export default function Registro() {
     <div className="background-img">
       <div className="vista-registro">
       
-        {/* Botón de retorno optimizado con Link apuntando a la raíz */}
         <Link to="/">
           <img src="/flecha.png" className="boton-volver" alt="Volver a inicio" />
         </Link>
 
-        {/* Encabezado del módulo de registro */}
         <header className="titulo-registro">
           Registro
         </header>
 
-        {/* Formulario conectado a la función onSubmit de React */}
         <form onSubmit={manejarRegistro} className="formulario-registro">
           
-          {/* Campos enlazados con sus respectivos estados */}
           <input 
             type="text" 
             placeholder="Nombre Completo..." 
@@ -83,10 +88,8 @@ export default function Registro() {
             required 
           />
 
-          {/* Selección de rol de usuario */}
           <p className="pregunta">¿Qué eres en tu iglesia?</p>
 
-          {/* CORREGIDO: Cambiado 'class' por 'className' */}
           <div className="contenedor-opciones">
             <label className="opcion-blanca">
               <input 
@@ -111,7 +114,6 @@ export default function Registro() {
             </label>
           </div>
 
-          {/* Credenciales de acceso de seguridad */}
           <input 
             type="password" 
             placeholder="Contraseña..." 
@@ -122,12 +124,10 @@ export default function Registro() {
           />
           <p className="texto-pequeno">¡Recuerda la contraseña, la necesitarás después!</p>
 
-          {/* Controles de envío y navegación interna */}
           <button type="submit" className="boton-blanco-grande">Guardar</button>
           <Link to="/login" className="enlace-final">¿Ya tienes una cuenta?</Link>
         </form>
 
-        {/* Insertamos el Footer al final de la pantalla de registro */}
         <Footer />
       </div>
     </div>

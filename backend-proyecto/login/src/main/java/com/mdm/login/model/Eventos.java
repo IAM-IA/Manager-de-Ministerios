@@ -10,20 +10,22 @@ import java.time.LocalDate;
 import lombok.Data;
 
 /**
- * Entidad de persistencia que representa un evento en el sistema.
- * Mapea directamente con la tabla 'eventos' de la base de datos mdem.
+ * Entidad de persistencia que representa un evento estructurado dentro del sistema.
+ * Mapea las propiedades de negocio con el esquema de la tabla de la base de datos relacional.
+ * Utiliza anotaciones de Jakarta Persistence para la configuración de ORM y Lombok para
+ * la generación dinámica de boilerplate en tiempo de compilación.
  * 
  * @author Ismae
  * @version 1.0
  */
-@Entity // Define que esta clase es una entidad de JPA
-@Data   // Genera automaticamente getters y setters mediante Lombok
-@Table(name = "eventos") // Especifica el nombre de la tabla en tu phpMyAdmin
+@Entity
+@Data
+@Table(name = "eventos")
 public class Eventos {
 
     /**
-     * Identificador unico del evento.
-     * Llave primaria con propiedad AUTO_INCREMENT.
+     * Identificador único autoincremental del registro del evento.
+     * Mapea como la clave primaria de la tabla correspondiente.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,37 +33,37 @@ public class Eventos {
     private long idEventos;
 
     /**
-     * Nombre descriptivo del evento (varchar(50)).
+     * Denominación o título representativo asignado al evento.
      */
     @Column(name = "nombre", nullable = false, length = 50)
     private String nombre;
 
     /**
-     * Fecha de realizacion del evento (tipo date en MySQL).
+     * Fecha de calendario programada para la ejecución del evento.
      */
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
 
-        /**
-     * Identificador del anfitrión principal (bigint(20)).
+    /**
+     * Identificador numérico que referencia al primer anfitrión o responsable obligatorio.
      */
     @Column(name = "id_usuario", nullable = false)
     private long idUsuario;
 
     /**
-     * Identificador del segundo anfitrión obligatorio (bigint(20)).
+     * Identificador numérico que referencia al segundo anfitrión o responsable obligatorio.
      */
     @Column(name = "id_usuario2", nullable = false)
     private long idUsuario2;
 
     /**
-     * Identificador del tercer anfitrión obligatorio (bigint(20)).
+     * Identificador numérico que referencia al tercer anfitrión o responsable obligatorio.
      */
     @Column(name = "id_usuario3", nullable = false)
     private long idUsuario3;
 
     /**
-     * Descripcion o detalles adicionales del evento (tipo text en MySQL).
+     * Información textual detallada que describe las actividades o características del evento.
      */
     @Column(name = "descripcion", nullable = false, columnDefinition = "TEXT")
     private String descripcion;

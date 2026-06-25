@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * Implementacion concreta de la interfaz EventosServices.
- * Contiene la logica de negocio y se comunica directamente con el repositorio.
+ * Implementación concreta del componente de negocio definido por la interfaz {@link EventosServices}.
+ * Se encarga de coordinar la lógica de negocio operativa de los eventos mediante la delegación 
+ * directa de transacciones a la capa de abstracción del repositorio {@link EventosRepository}.
  * 
  * @author Ismael
  * @version 1.0
@@ -20,22 +21,34 @@ public class EventosServicesImpl implements EventosServices {
     @Autowired
     private EventosRepository eventosRepository;
 
+    /**
+     * {@inheritDoc}
+     * Recupera todos los registros de la entidad invocando el método genérico del repositorio.
+     */
     @Override
     public List<Eventos> listarTodos() {
         return eventosRepository.findAll();
     }
 
+    /**
+     * {@inheritDoc}
+     * Realiza el registro y persistencia de un nuevo evento en el origen de datos.
+     */
     @Override
     public Eventos guardar(Eventos eventos) {
         return eventosRepository.save(eventos);
     }
 
+    /**
+     * {@inheritDoc}
+     * Ejecuta una validación de existencia de la entidad de destino mediante su clave primaria.
+     * Si la entidad se encuentra presente, actualiza el estado de sus propiedades modificables 
+     * y consolida la transacción.
+     */
     @Override
     public Eventos modifyEventos(Eventos eventos) {
-        // Busca el evento por su ID antes de modificarlo en MySQL usando la llave primaria correcta
         Optional<Eventos> eventoEncontrado = eventosRepository.findById(eventos.getIdEventos());
         
-        // Si existe, actualiza de forma manual cada propiedad de la tabla eventos
         if (eventoEncontrado.isPresent()) {
             Eventos eventoActual = eventoEncontrado.get();
             eventoActual.setNombre(eventos.getNombre());
@@ -43,19 +56,26 @@ public class EventosServicesImpl implements EventosServices {
             eventoActual.setIdUsuario(eventos.getIdUsuario());
             eventoActual.setDescripcion(eventos.getDescripcion());
             
-            // Guarda los cambios y retorna la entidad actualizada
             return eventosRepository.save(eventoActual);
         }
         
-        // Si el ID no coincide con ningun registro, retorna null
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     * Inspecciona de forma segura la existencia de un registro por su clave primaria, retornando
+     * la instancia mapeada o una referencia nula en caso de ausencia.
+     */
     @Override
     public Eventos buscarPorId(Long id) {
         return eventosRepository.findById(id).orElse(null);
     }
 
+    /**
+     * {@inheritDoc}
+     * Remueve la entidad correspondiente del almacén relacional por medio de su identificador.
+     */
     @Override
     public void eliminar(Long id) {
         eventosRepository.deleteById(id);

@@ -2,14 +2,20 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import '../css/general.css';
 
+/**
+ * Componente que renderiza la vista general de la aplicación.
+ * Muestra un calendario dinámico basado en la fecha del sistema actual
+ * y despliega una sección lateral con el listado de eventos programados.
+ * 
+ * @component
+ * @returns {React.JSX.Element} Panel principal con calendario y eventos.
+ */
 export default function General() {
-  // Simulación de eventos próximos
   const [eventos] = useState([
     { id: 1, dia: 9, detalle: "Servicio de Anfitrión" },
     { id: 2, dia: 17, detalle: "Reunión de Anfitriones" }
   ]);
 
-  // --- LÓGICA NATIVA DE JAVASCRIPT PARA EL CALENDARIO ---
   const fechaActual = new Date();
   const diaActual = fechaActual.getDate();
   const anioActual = fechaActual.getFullYear();
@@ -20,8 +26,17 @@ export default function General() {
     "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
   ];
   const nombreMesActual = `${mesesEspanol[numeroMes]} ${anioActual}`;
+  
+  /**
+   * Determina la cantidad total de días del mes en curso utilizando
+   * el desbordamiento de días del objeto Date (pasando 0 al mes siguiente).
+   */
   const totalDiasMes = new Date(anioActual, numeroMes + 1, 0).getDate();
 
+  /**
+   * Ajusta el índice del primer día de la semana para que comience en Lunes (1)
+   * en lugar del estándar dominical de JavaScript (0).
+   */
   let primerDiaSemana = new Date(anioActual, numeroMes, 1).getDay();
   if (primerDiaSemana === 0) primerDiaSemana = 7;
 
@@ -38,10 +53,8 @@ export default function General() {
   return (
     <div className="interfaz-escritorio">
       
-      {/* Tu nueva barra lateral independiente */}
       <Navbar />
 
-      {/* Área central del contenido */}
       <div className="contenido-principal">
         <header className="cabecera-modulo">
           <h1 className="titulo-principal">{nombreMesActual}</h1>
@@ -78,7 +91,6 @@ export default function General() {
         </div>
       </div>
 
-      {/* Aquí ya no está la etiqueta Footer, por lo que no cargará nada más */}
     </div>
   );
 }

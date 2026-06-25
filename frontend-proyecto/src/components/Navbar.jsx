@@ -1,17 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+/**
+ * Componente que renderiza el panel lateral de navegación (Navbar).
+ * Recupera el estado de la sesión del usuario para mostrar su perfil,
+ * provee enlaces de enrutamiento y gestiona el flujo de cierre de sesión.
+ * 
+ * @component
+ * @returns {React.JSX.Element} Barra de navegación lateral con controles de usuario.
+ */
 export default function Navbar() {
   const navigate = useNavigate();
 
-  // Variables de estado estándares para los datos del usuario
   const [usuario, setUsuario] = useState({
     nombre: "Usuario",
     cargo: "Miembro"
   });
 
+  /**
+   * Efecto que se ejecuta al montar el componente para sincronizar el estado
+   * local con los datos de sesión almacenados en el navegador.
+   */
   useEffect(() => {
-    // Al cargar el menú, leemos los datos reales guardados en el Login
     const nombreGuardado = sessionStorage.getItem('usuarioNombre');
     const cargoGuardado = sessionStorage.getItem('usuarioCargo');
 
@@ -23,7 +33,10 @@ export default function Navbar() {
     }
   }, []);
 
-  // Función para borrar la sesión y salir al Login
+  /**
+   * Limpia el almacenamiento de sesión de la API del navegador
+   * y redirige al usuario hacia la pantalla de autenticación.
+   */
   const manejarCerrarSesion = () => {
     sessionStorage.clear();
     alert('Has cerrado sesión correctamente.');
@@ -33,7 +46,6 @@ export default function Navbar() {
   return (
     <aside className="panel-lateral">
       
-      {/* Bloque 1: Perfil (Arriba) */}
       <div className="perfil-usuario">
         <div className="capsula-nombre">
           <span className="icono-usuario">👤</span>
@@ -41,7 +53,6 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Bloque 2: Menú de navegación (Centro) */}
       <nav className="menu-navegacion">
         <Link to="/crear_evento" className="enlace-navegacion">
           Crear Evento
@@ -51,7 +62,6 @@ export default function Navbar() {
         </Link>
       </nav>
 
-      {/* Bloque 3: Todo el grupo inferior (Se irá directo al piso) */}
       <div className="branding-inferior">
         <div className="logo-sistema">
           <img src="/Logo_MDM.png" alt="Logo MDM" className="logo-proyecto" />

@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * Controlador REST que gestiona las peticiones HTTP para la entidad Eventos.
- * Sigue la estructura exacta de paquetes creada en NetBeans.
+ * Controlador REST encargado de exponer los endpoints HTTP para la gestión de la entidad Eventos.
+ * Provee las operaciones del ciclo de vida CRUD (Crear, Leer, Actualizar, Eliminar) interactuando
+ * con la capa de servicios empresarial.
  * 
  * @author Ismae
  * @version 1.0
@@ -19,11 +20,13 @@ import org.springframework.web.bind.annotation.*;
 public class EventosController {
 
     @Autowired
-    private EventosServices eventosServices; // Corregido el nombre en plural del servicio
+    private EventosServices eventosServices;
 
     /**
-     * Endpoint para registrar un nuevo evento mediante una peticion POST.
-     * Ruta HTTP: http://localhost:8081/eventos/nuevo
+     * Registra y persiste un nuevo evento en el sistema.
+     * 
+     * @param eventos Objeto de tipo {@link Eventos} que contiene la información estructurada del formulario.
+     * @return El objeto {@link Eventos} persistido incluyendo su identificador asignado.
      */
     @PostMapping("/nuevo")
     public Eventos newEvento(@RequestBody Eventos eventos) {
@@ -31,8 +34,9 @@ public class EventosController {
     }
 
     /**
-     * Endpoint para obtener la lista de todos los eventos mediante una peticion GET.
-     * Ruta HTTP: http://localhost:8081/eventos/mostrar
+     * Recupera el listado completo de todos los eventos almacenados en el repositorio de datos.
+     * 
+     * @return Una lista de tipo {@link List} que contiene todas las instancias de {@link Eventos}.
      */
     @GetMapping("/mostrar")
     public List<Eventos> getAll() {
@@ -40,17 +44,20 @@ public class EventosController {
     }
 
     /**
-     * Endpoint para actualizar un evento existente mediante una peticion POST.
-     * Ruta HTTP: http://localhost:8081/eventos/modificar
+     * Modifica los atributos de un evento existente mediante los datos actualizados del payload.
+     * 
+     * @param eventos Objeto de tipo {@link Eventos} con los cambios que se desean persistir.
+     * @return El objeto {@link Eventos} con las modificaciones aplicadas en el almacenamiento.
      */
     @PostMapping("/modificar")
     public Eventos updateEvento(@RequestBody Eventos eventos) {
-        return eventosServices.modifyEventos(eventos); // Corregido el nombre del método en plural
+        return eventosServices.modifyEventos(eventos);
     }
 
     /**
-     * Endpoint para eliminar un evento por su ID mediante una peticion DELETE.
-     * Ruta HTTP: http://localhost:8081/eventos/eliminar/{id}
+     * Remueve de manera permanente un registro de evento utilizando su identificador único.
+     * 
+     * @param id Identificador numérico de tipo {@link Long} que mapea al evento que será removido.
      */
     @DeleteMapping("/eliminar/{id}")
     public void deleteEvento(@PathVariable("id") Long id) {

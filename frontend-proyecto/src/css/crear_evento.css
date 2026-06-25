@@ -1,6 +1,9 @@
-/* ==========================================================================
-   Estilos CSS - Nivel Tecnólogo ADSO (Grid Layout Dinámico)
-   ========================================================================== */
+/**
+ * @file crear_evento.css
+ * @section Formulario de Creación de Eventos
+ * @description Estilos estructurales y visuales para el módulo de registro de eventos.
+ * Implementa un modelo híbrido basado en Flexbox y CSS Grid Layout.
+ */
 
 .contenedor-centrado-formulario {
     display: flex;
@@ -25,11 +28,14 @@
     margin: 0;
 }
 
-/* Tarjeta optimizada y estilizada */
+/**
+ * @subsection Contenedor Tarjeta
+ * @description Define el contenedor asimétrico con elevación visual sobre el eje Z.
+ */
 .tarjeta-formulario-azul {
     background-color: #4B6B83;
     width: 100%;
-    max-width: 500px; /* Reducción de ancho controlado */
+    max-width: 500px;
     padding: 30px;
     border-radius: 16px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
@@ -42,19 +48,21 @@
     gap: 20px;
 }
 
-/* Distribución del formulario en dos columnas equilibradas */
+/**
+ * @subsection Distribución Bidimensional (CSS Grid)
+ * @description Controla el flujo posicional de los campos mediante la ocupación de columnas.
+ */
 .grilla-formulario {
     display: grid;
-    grid-template-columns: 1fr 1fr; /* Dos columnas iguales */
-    gap: 14px; /* Espaciado uniforme */
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
     width: 100%;
 }
 
-/* Manejo de espacios en la cuadrícula */
 .campo-nombre { grid-column: span 1; }
 .campo-fecha { grid-column: span 1; }
-.campo-descripcion { grid-column: span 2; } /* Ocupa todo el ancho */
-.campo-anfitrion1 { grid-column: span 2; }   /* Ocupa todo el ancho */
+.campo-descripcion { grid-column: span 2; }
+.campo-anfitrion1 { grid-column: span 2; }
 .campo-anfitrion2 { grid-column: span 1; }
 .campo-anfitrion3 { grid-column: span 1; }
 
@@ -64,7 +72,6 @@
     gap: 6px;
 }
 
-/* Etiquetas cambiadas a <label> para mejor semántica evaluada en ADSO */
 .etiqueta-formulario {
     color: #FFFFFF;
     font-weight: 600;
@@ -73,11 +80,14 @@
     margin: 0;
 }
 
-/* Inputs con padding refinado para no verse toscos */
+/**
+ * @subsection Componentes de Entrada de Datos
+ * @description Normalización de campos de texto, áreas de texto y selectores.
+ */
 .campo-redondo {
     width: 100%;
     padding: 10px 14px;
-    border-radius: 20px; /* Redondeado sutil y moderno */
+    border-radius: 20px;
     border: none;
     background-color: #FFFFFF;
     font-size: 0.9rem;
@@ -92,7 +102,7 @@
 
 .campo-redondo.area-texto {
     resize: none;
-    height: 75px; /* Compactación vertical */
+    height: 75px;
     border-radius: 12px;
 }
 
@@ -105,7 +115,10 @@
     padding-right: 30px;
 }
 
-/* Botón de envío */
+/**
+ * @subsection Componentes de Control de Acciones
+ * @description Botón transicional con soporte para micro-interacciones de usuario.
+ */
 .boton-crear-blanco {
     background-color: #FFFFFF;
     color: #333333;
